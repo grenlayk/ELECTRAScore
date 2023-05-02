@@ -102,6 +102,14 @@ rougel_r   0.0827189     0.0692879
 rouge1_r   0.0744546     0.0608603
 ```
 
+ELECTRAScore
+```
+Human metric: fluency
+metric           spearman    kendalltau
+-------------  ----------  ------------
+electra_score    0.355723      0.290099
+```
+
 In order to evaluate metrics for Newsroom and calculate spearman correlation score we can use this code:
 
 ```Python
@@ -146,7 +154,13 @@ rougel_p  -0.00314919    0.00826815
 rouge1_p  -0.00755879   -0.00200908
 ```
 
-All metrics (except rouge): https://pastebin.com/rwjYFnfp
+ELECTRAScore
+```
+Human metric: fluency
+metric           spearman    kendalltau
+-------------  ----------  ------------
+electra_score    0.433697      0.360391
+```
 
 ## Issues
 

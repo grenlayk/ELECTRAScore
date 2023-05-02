@@ -1,5 +1,5 @@
 # %%
-from analisys_utils import *
+from utils import *
 from copy import deepcopy
 from tqdm import trange
 from tqdm import tqdm
@@ -16,14 +16,9 @@ class SUMStat:
         self._metrics = list(self.data[self.sample_id]['sys_summs'][self.sample_sys]['scores'].keys())
         self._auto_metrics = [x for x in self.metrics if x not in self.human_metrics]
 
-    def save_data(self, path=None):
-        if path is None:
-            path = self.path
-        save_pickle(self.data, path)
-
-    def evaluate_summary(self, auto_metrics=None, table=None):
+    def evaluate_summary(self, human_metric='fluency', auto_metrics=None, table=None):
         """ Evaluate summaries. Conduct summary-level correlations w.r.t each document """
-        human_metric = 'fluency'
+        assert human_metric in self.human_metrics
         if auto_metrics is None:
             auto_metrics = self.auto_metrics
         print(f'Human metric: {human_metric}')
@@ -61,11 +56,15 @@ class SUMStat:
     @property
     def metrics(self):
         return self._metrics
-    
+
     @property
     def human_metrics(self):
         """ All available human metrics. """
+        if 'REALSumm' in self.path:
+            return ['litepyramid_recall']
         if 'SummEval' in self.path:
             return ['coherence', 'consistency', 'fluency', 'relevance']
         if 'Newsroom' in self.path:
             return ['coherence', 'fluency', 'informativeness', 'relevance']
+        if 'Rank19' in self.path or 'QAGS' in self.path:
+            return ['fact']
