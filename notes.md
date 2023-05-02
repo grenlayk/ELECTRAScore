@@ -74,16 +74,6 @@ metric                      spearman    kendalltau
 bart_score_cnn_src_hypo   0.356487     0.292136
 bart_score_src_hypo       0.24802      0.202521
 bert_score_f              0.193229     0.157773
-bert_score_r              0.190092     0.153538
-bart_score_cnn_avg_f      0.13216      0.110898
-bart_score_cnn_harm_f     0.126831     0.105637
-bert_score_p              0.120363     0.097894
-bart_score_cnn_hypo_ref   0.113409     0.0913985
-bart_score_cnn_ref_hypo   0.109333     0.0910405
-bart_score_harm_f         0.0379608    0.0292604
-bart_score_ref_hypo       0.0128045    0.0110808
-bart_score_hypo_ref       0.00176333   0.000597686
-bart_score_avg_f         -0.00436448  -0.001944
 ```
 
 Rouge
@@ -92,22 +82,19 @@ Human metric: fluency
 metric      spearman    kendalltau
 --------  ----------  ------------
 rouge2_f   0.158797      0.128203
-rouge2_p   0.137032      0.111975
 rouge1_f   0.114974      0.0938505
-rouge2_r   0.11303       0.0921418
 rougel_f   0.104976      0.0841752
-rouge1_p   0.0947817     0.0803175
-rougel_p   0.0832704     0.0704288
-rougel_r   0.0827189     0.0692879
-rouge1_r   0.0744546     0.0608603
 ```
 
 ELECTRAScore
 ```
 Human metric: fluency
-metric           spearman    kendalltau
--------------  ----------  ------------
-electra_score    0.355723      0.290099
+metric                  spearman    kendalltau
+--------------------  ----------  ------------
+electra_score           0.388951      0.316606
+electra_score_mean      0.355723      0.290099
+electra_score_min       0.351573      0.293277
+electra_score_median    0.296727      0.244721
 ```
 
 In order to evaluate metrics for Newsroom and calculate spearman correlation score we can use this code:
@@ -125,17 +112,7 @@ metric                     spearman    kendalltau
 -----------------------  ----------  ------------
 bart_score_src_hypo       0.670134     0.563899
 bart_score_cnn_src_hypo   0.639777     0.540041
-bart_score_cnn_ref_hypo   0.352645     0.286757
-bart_score_cnn_avg_f      0.347317     0.285245
-bart_score_cnn_harm_f     0.333977     0.273559
-bert_score_r              0.292612     0.231461
-bart_score_hypo_ref       0.291634     0.226363
-bart_score_cnn_hypo_ref   0.235044     0.183404
-bart_score_harm_f         0.202404     0.163598
 bert_score_f              0.140051     0.108461
-bert_score_p              0.0389706    0.0409785
-bart_score_avg_f         -0.0128456   -0.00872257
-bart_score_ref_hypo      -0.214758    -0.171584
 ```
 
 Rouge
@@ -143,36 +120,22 @@ Rouge
 Human metric: fluency
 metric       spearman    kendalltau
 --------  -----------  ------------
-rouge1_r   0.220181      0.187634
-rougel_r   0.199403      0.176571
 rouge1_f   0.103553      0.0818111
-rouge2_r   0.0927091     0.0743487
 rougel_f   0.0646335     0.0552827
-rouge2_p   0.0479652     0.0338056
 rouge2_f   0.0478407     0.0324639
-rougel_p  -0.00314919    0.00826815
-rouge1_p  -0.00755879   -0.00200908
 ```
 
 ELECTRAScore
 ```
 Human metric: fluency
-metric           spearman    kendalltau
--------------  ----------  ------------
-electra_score    0.433697      0.360391
+metric                  spearman    kendalltau
+--------------------  ----------  ------------
+electra_score_median    0.491056      0.399968
+electra_score_mean      0.433697      0.360391
+electra_score           0.429291      0.359955
+electra_score_min       0.362858      0.294209
 ```
 
-## Issues
-
-### Rouge installation & execution
-
-Tried many thing (e.g. install and reinstall, but failed). Decided to resolve later.
-
-Links collected during attempts:
-- https://gist.github.com/donglixp/d7eea02d57ba2e099746f8463c2f6597
-- https://medium.com/@prabha88978/installation-working-process-of-rouge-1-5-5-6c0dfdca49e8 
-
-TODO: try to reinstall and do this https://github.com/neulab/BARTScore/issues/17.
 
 
 

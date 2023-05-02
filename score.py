@@ -3,14 +3,15 @@ import os
 import time
 import numpy as np
 from utils import *
+from functools import partial
+import torch
 
 
-SRC_HYPO = read_file_to_list('files/src_hypo_prompt.txt')
-REF_HYPO = read_file_to_list('files/ref_hypo_prompt.txt')
-
+SRC_HYPO = read_file_to_list('data/files/src_hypo_prompt.txt')
+REF_HYPO = read_file_to_list('data/files/ref_hypo_prompt.txt')
 
 class Scorer:
-    """ Support ROUGE-1,2,L, BERTScore, BARTScore """
+    """ Support BERTScore, BARTScore """
 
     def __init__(self, file_path, device='cuda:0', multi_ref=False):
         """ file_path: path to the pickle file
@@ -101,80 +102,44 @@ class Scorer:
                             'bert_score_f': F[counter]
                         })
                         counter += 1
-                print(f'Finished calculating BERTScore, time passed {time.time() - start}s.')
+                print(f'Finished calculating BERTScore, time passed \
+                      {time.time() - start}s.')
+            
+            elif metric_name == 'electra_score':
+                """ Vanilla ELECTRAScore """
+                from electra_score import ELECTRAScorer
 
-            elif metric_name == 'rouge':
-                from gehrmann_rouge_opennmt.rouge_baselines.baseline import baseline_main
+                electra_scorer = ELECTRAScorer(device=self.device)
+                print(f'ELECTRAScorer setup finished. Begin calculating ELECTRAScore.')
 
-                def rouge(dic):
-                    """ Get r, p, f scores """
-                    r1_, r2_, rl_ = [], [], []
-                    for k in dic:
-                        r1_.append([dic[k]['rouge_1_recall'], dic[k]['rouge_1_precision'], dic[k]['rouge_1_f_score']])
-                        r2_.append([dic[k]['rouge_2_recall'], dic[k]['rouge_2_precision'], dic[k]['rouge_2_f_score']])
-                        rl_.append([dic[k]['rouge_l_recall'], dic[k]['rouge_l_precision'], dic[k]['rouge_l_f_score']])
-                    return r1_, r2_, rl_
-
-                print(f'Begin calculating ROUGE.')
                 start = time.time()
-                blockPrint()
-
-                if not self.multi_ref:
-                    ref_lines = [line.lower() for line in self.single_ref_lines]
-                else:
-                    ref_lines = [[text.lower() for text in line] for line in self.multi_ref_lines]
-
                 for sys_name in self.sys_names:
                     sys_lines = self.get_sys_lines(sys_name)
-                    sys_lines = [line.lower() for line in sys_lines]
-
-                    rouge1_scores, rouge2_scores, rougel_scores = [], [], []
-                    write_list_to_file(sys_lines, 'hypo.txt')
-                    if not self.multi_ref:
-                        write_list_to_file(ref_lines, 'ref.txt')
-                        args = argparse.Namespace(check_repeats=True, delete=True, get_each_score=True, stemming=True,
-                                                  method='sent_no_tag', n_bootstrap=1000, run_google_rouge=False,
-                                                  run_rouge=True, source='./hypo.txt', target='./ref.txt',
-                                                  ref_sep='||NEVER||', num_ref=1, temp_dir='./temp/')
-
-                        scores = baseline_main(args, return_pyrouge_scores=True)['individual_score_results']
-                        rouge1_scores, rouge2_scores, rougel_scores = rouge(scores)
-                    else:
-                        for i in range(self.ref_num):
-                            ref_list = [x[i] for x in ref_lines]
-                            write_list_to_file(ref_list, 'ref.txt')
-                            args = argparse.Namespace(check_repeats=True, delete=True, get_each_score=True,
-                                                      stemming=True,
-                                                      method='sent_no_tag', n_bootstrap=1000, run_google_rouge=False,
-                                                      run_rouge=True, source='./hypo.txt', target='./ref.txt',
-                                                      ref_sep='||NEVER||', num_ref=1, temp_dir='./temp/')
-
-                            scores = baseline_main(args, return_pyrouge_scores=True)['individual_score_results']
-                            r1, r2, rl = rouge(scores)
-                            rouge1_scores.append(r1)
-                            rouge2_scores.append(r2)
-                            rougel_scores.append(rl)
-                        rouge1_scores = np.mean(rouge1_scores, axis=0)
-                        rouge2_scores = np.mean(rouge2_scores, axis=0)
-                        rougel_scores = np.mean(rougel_scores, axis=0)
-
+                    scores = electra_scorer.score(sys_lines)
+                    scores_mean = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.mean)
+                    scores_min = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.min)
+                    scores_median = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.median)
+                    scores_percent_25 = electra_scorer.score(
+                        sys_lines, sent_agg_func=partial(
+                        torch.quantile, q=0.25))
+                    scores_percent_75 = electra_scorer.score(
+                        sys_lines, sent_agg_func=partial(
+                        torch.quantile, q=0.75))
                     counter = 0
                     for doc_id in self.data:
                         self.data[doc_id]['sys_summs'][sys_name]['scores'].update({
-                            'rouge1_r': rouge1_scores[counter][0],
-                            'rouge1_p': rouge1_scores[counter][1],
-                            'rouge1_f': rouge1_scores[counter][2],
-                            'rouge2_r': rouge2_scores[counter][0],
-                            'rouge2_p': rouge2_scores[counter][1],
-                            'rouge2_f': rouge2_scores[counter][2],
-                            'rougel_r': rougel_scores[counter][0],
-                            'rougel_p': rougel_scores[counter][1],
-                            'rougel_f': rougel_scores[counter][2]
+                            f'{metric_name}': scores[counter],
+                            f'{metric_name}_mean': scores_mean[counter],
+                            f'{metric_name}_min': scores_min[counter],
+                            f'{metric_name}_median': scores_median[counter],
+                            f'{metric_name}_percentile_25': scores_percent_25[counter],
+                            f'{metric_name}_percentile_75': scores_percent_75[counter],
                         })
                         counter += 1
-                enablePrint()
-                os.system('rm -rf hypo.txt ref.txt')
-                print(f'Finished calculating ROUGE, time passed {time.time() - start}s.')
+                print(f'Finished calculating ELECTRAScore, time passed {time.time() - start}s.')
 
             elif metric_name == 'bart_score' or metric_name == 'bart_score_cnn' or metric_name == 'bart_score_para':
                 """ Vanilla BARTScore, BARTScore-CNN, BARTScore-CNN-Para """
@@ -339,7 +304,6 @@ class Scorer:
                                 counter += 1
                 print(f'Finished calculating BARTScore-P, time passed {time.time() - start}s.')
 
-
             else:
                 raise NotImplementedError
 
@@ -356,8 +320,8 @@ def main():
                         help='The output path to save the calculated scores.')
     parser.add_argument('--bert_score', action='store_true', default=False,
                         help='Whether to calculate BERTScore')
-    parser.add_argument('--rouge', action='store_true', default=False,
-                        help='Whether to calculate ROUGE')
+    parser.add_argument('--electra_score', action='store_true', default=False,
+                        help='Whether to calculate ELECTRAScore')
     parser.add_argument('--bart_score', action='store_true', default=False,
                         help='Whether to calculate BARTScore')
     parser.add_argument('--bart_score_cnn', action='store_true', default=False,
@@ -374,10 +338,10 @@ def main():
     METRICS = []
     if args.bert_score:
         METRICS.append('bert_score')
-    if args.rouge:
-        METRICS.append('rouge')
     if args.bart_score:
         METRICS.append('bart_score')
+    if args.electra_score:
+        METRICS.append('electra_score')
     if args.bart_score_cnn:
         METRICS.append('bart_score_cnn')
     if args.bart_score_para:
