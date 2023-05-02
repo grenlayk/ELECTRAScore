@@ -74,27 +74,22 @@ metric                      spearman    kendalltau
 bart_score_cnn_src_hypo   0.356487     0.292136
 bart_score_src_hypo       0.24802      0.202521
 bert_score_f              0.193229     0.157773
-```
-
-Rouge
-```
-Human metric: fluency
-metric      spearman    kendalltau
---------  ----------  ------------
-rouge2_f   0.158797      0.128203
-rouge1_f   0.114974      0.0938505
-rougel_f   0.104976      0.0841752
+rouge2_f                  0.158797     0.128203
+rouge1_f                  0.114974     0.0938505
+rougel_f                  0.104976     0.0841752
 ```
 
 ELECTRAScore
 ```
 Human metric: fluency
-metric                  spearman    kendalltau
---------------------  ----------  ------------
-electra_score           0.388951      0.316606
-electra_score_mean      0.355723      0.290099
-electra_score_min       0.351573      0.293277
-electra_score_median    0.296727      0.244721
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score                  0.388793      0.31634
+electra_score_mean             0.355717      0.290085
+electra_score_min              0.350164      0.291133
+electra_score_percentile_25    0.330365      0.271945
+electra_score_median           0.296147      0.243935
+electra_score_percentile_75    0.243651      0.198214
 ```
 
 In order to evaluate metrics for Newsroom and calculate spearman correlation score we can use this code:
@@ -113,29 +108,20 @@ metric                     spearman    kendalltau
 bart_score_src_hypo       0.670134     0.563899
 bart_score_cnn_src_hypo   0.639777     0.540041
 bert_score_f              0.140051     0.108461
-```
-
-Rouge
-```
-Human metric: fluency
-metric       spearman    kendalltau
---------  -----------  ------------
-rouge1_f   0.103553      0.0818111
-rougel_f   0.0646335     0.0552827
-rouge2_f   0.0478407     0.0324639
+rouge1_f                  0.103553     0.081811
+rougel_f                  0.064634     0.055283
+rouge2_f                  0.047841     0.032464
 ```
 
 ELECTRAScore
 ```
 Human metric: fluency
-metric                  spearman    kendalltau
---------------------  ----------  ------------
-electra_score_median    0.491056      0.399968
-electra_score_mean      0.433697      0.360391
-electra_score           0.429291      0.359955
-electra_score_min       0.362858      0.294209
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score_median           0.492731      0.401303
+electra_score_percentile_75    0.487944      0.395381
+electra_score_mean             0.434852      0.361143
+electra_score                  0.430446      0.360707
+electra_score_percentile_25    0.422495      0.349833
+electra_score_min              0.363339      0.29292
 ```
-
-
-
-
