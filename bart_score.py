@@ -1,12 +1,18 @@
 # %%
+import traceback
+
 import torch
 import torch.nn as nn
-import traceback
-from transformers import BartTokenizer, BartForConditionalGeneration
+from transformers import BartForConditionalGeneration, BartTokenizer
 
 
 class BARTScorer:
-    def __init__(self, device='cuda:0', max_length=1024, checkpoint='facebook/bart-large-cnn'):
+    def __init__(
+        self,
+        device='cuda:0',
+        max_length=1024,
+        checkpoint='facebook/bart-large-cnn'
+    ):
         # Set up model
         self.device = device
         self.max_length = max_length
@@ -16,12 +22,14 @@ class BARTScorer:
         self.model.to(device)
 
         # Set up loss
-        self.loss_fct = nn.NLLLoss(reduction='none', ignore_index=self.model.config.pad_token_id)
+        self.loss_fct = nn.NLLLoss(
+            reduction='none', ignore_index=self.model.config.pad_token_id)
         self.lsm = nn.LogSoftmax(dim=1)
 
     def load(self):
         """ Load model from paraphrase finetuning """
-        self.model.load_state_dict(torch.load('models/bart.pth', map_location=self.device))
+        self.model.load_state_dict(
+            torch.load('models/bart.pth', map_location=self.device))
 
     def score(self, srcs, tgts, batch_size):
         """ Score a batch of examples """
@@ -57,7 +65,8 @@ class BARTScorer:
                         attention_mask=src_mask,
                         labels=tgt_tokens
                     )
-                    logits = output.logits.view(-1, self.model.config.vocab_size)
+                    logits = output.logits.view(
+                        -1, self.model.config.vocab_size)
                     loss = self.loss_fct(self.lsm(logits), tgt_tokens.view(-1))
                     loss = loss.view(tgt_tokens.shape[0], -1)
                     loss = loss.sum(dim=1) / tgt_len

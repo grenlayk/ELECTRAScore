@@ -1,22 +1,21 @@
-from typing import List, Optional, Callable
-from datasets import Dataset
-from transformers import AutoModelForSequenceClassification, AutoTokenizer,  DataCollatorWithPadding
-from tqdm import tqdm
-import numpy as np
+from typing import Callable, List, Optional
 
 import nltk
-
+import numpy as np
 import torch
+from datasets import Dataset
 from torch.utils.data import DataLoader
+from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
+                          DataCollatorWithPadding)
 
 
 class ELECTRAScorer:
     def __init__(
-            self, 
-            device='cuda:0', 
-            max_length=1024, 
-            checkpoint="Aktsvigun/electra-large-cola"
-        ):
+        self,
+        device='cuda:0',
+        max_length=1024,
+        checkpoint="Aktsvigun/electra-large-cola"
+    ):
         # Set up model
         self.device = device
         self.max_length = max_length
@@ -26,17 +25,16 @@ class ELECTRAScorer:
         self.model.eval()
         self.model.to(device)
 
-
     def score(
         self,
         texts: List[str],
         batch_size: int = 8,
         sent_agg_func: Optional[Callable] = None,
         return_sent_data: bool = False
-    ):  
+    ):
         def tokenize_fn(instance):
             return self.tokenizer(instance["text"], truncation=True)
-        
+
         if sent_agg_func is not None:
             # Split texts to sentenses
             text_sentences = [nltk.sent_tokenize(text) for text in texts]
@@ -50,12 +48,13 @@ class ELECTRAScorer:
         else:
             tokenized_data = Dataset.from_dict({"text": texts}).map(
                 tokenize_fn, remove_columns=["text"], batched=True)
-            
+
         data_collator = DataCollatorWithPadding(tokenizer=self.tokenizer)
         dataloader = DataLoader(
-            tokenized_data, batch_size=batch_size, shuffle=False, collate_fn=data_collator
+            tokenized_data, batch_size=batch_size,
+            shuffle=False, collate_fn=data_collator
         )
-        
+
         probas = torch.empty(
             len(texts), dtype=torch.float32, device=self.device)
 
@@ -72,7 +71,7 @@ class ELECTRAScorer:
                     sent_probas[start:end].copy_(batch_probas)
                 start = end
                 end += batch_size
-        
+
         # Aggreagate sentences scores for each text
         if sent_agg_func is not None:
             for i, end_idx in enumerate(len_maps):
@@ -80,5 +79,6 @@ class ELECTRAScorer:
                 probas[i].copy_(sent_agg_func(sent_probas[start_idx:end_idx]))
 
         if return_sent_data:
-            return probas.cpu().detach().numpy(), sent_probas.cpu().detach().numpy(), sentences
+            return (probas.cpu().detach().numpy(),
+                    sent_probas.cpu().detach().numpy(), sentences)
         return probas.cpu().detach().numpy()

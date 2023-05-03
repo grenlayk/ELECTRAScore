@@ -1,8 +1,9 @@
 # %%
-from utils import *
-from copy import deepcopy
-from tqdm import trange
-from tqdm import tqdm
+import numpy as np
+from scipy.stats import kendalltau, spearmanr
+from tabulate import tabulate
+
+from utils import read_pickle
 
 
 class SUMStat:
@@ -12,12 +13,23 @@ class SUMStat:
         self.path = path
         self.data = read_pickle(path)
         self.sample_id = list(self.data.keys())[0]
-        self.sample_sys = list(self.data[self.sample_id]['sys_summs'].keys())[0]
-        self._metrics = list(self.data[self.sample_id]['sys_summs'][self.sample_sys]['scores'].keys())
-        self._auto_metrics = [x for x in self.metrics if x not in self.human_metrics]
+        self.sample_sys = list(
+            self.data[self.sample_id]['sys_summs'].keys())[0]
+        self._metrics = list(
+            self.data[self.sample_id]['sys_summs'][self.sample_sys]
+            ['scores'].keys()
+        )
+        self._auto_metrics = [x for x in self.metrics
+                              if x not in self.human_metrics]
 
-    def evaluate_summary(self, human_metric='fluency', auto_metrics=None, table=None):
-        """ Evaluate summaries. Conduct summary-level correlations w.r.t each document """
+    def evaluate_summary(
+        self,
+        human_metric='fluency',
+        auto_metrics=None,
+        table=None
+    ):
+        """ Evaluate summaries.
+        Conduct summary-level correlations w.r.t each document. """
         assert human_metric in self.human_metrics
         if auto_metrics is None:
             auto_metrics = self.auto_metrics
@@ -32,22 +44,29 @@ class SUMStat:
 
                 sys_summs = self.data[doc_id]['sys_summs']
                 for sys_name in sys_summs:
-                    prediction_scores.append(sys_summs[sys_name]['scores'][metric])
-                    target_scores.append(sys_summs[sys_name]['scores'][human_metric])
-                if len(set(prediction_scores)) == 1 or len(set(target_scores)) == 1:
+                    prediction_scores.append(
+                        sys_summs[sys_name]['scores'][metric])
+                    target_scores.append(
+                        sys_summs[sys_name]['scores'][human_metric])
+                if (len(set(prediction_scores)) == 1 or
+                        len(set(target_scores)) == 1):
                     continue
-                correlations.append([spearmanr(target_scores, prediction_scores)[0],
-                                     kendalltau(target_scores, prediction_scores)[0]])
+                correlations.append([
+                    spearmanr(target_scores, prediction_scores)[0],
+                    kendalltau(target_scores, prediction_scores)[0]
+                ])
             corr_mat = np.array(correlations)
             spearman, ktau = np.mean(corr_mat[:, 0]), np.mean(corr_mat[:, 1])
             metric_with_corr.append([metric, spearman, ktau])
-        sorted_metric_with_corr = sorted(metric_with_corr, key=lambda x: x[1], reverse=True)
+        sorted_metric_with_corr = sorted(
+            metric_with_corr, key=lambda x: x[1], reverse=True)
         if table is not None:
             file = open(table, 'w')
             for each in sorted_metric_with_corr:
                 print(f'{each[0]}\t{each[1]}\t{each[2]}', file=file)
             file.flush()
-        print(tabulate(sorted_metric_with_corr, headers=headers, tablefmt='simple'))
+        print(tabulate(
+            sorted_metric_with_corr, headers=headers, tablefmt='simple'))
 
     @property
     def auto_metrics(self):
@@ -60,11 +79,7 @@ class SUMStat:
     @property
     def human_metrics(self):
         """ All available human metrics. """
-        if 'REALSumm' in self.path:
-            return ['litepyramid_recall']
         if 'SummEval' in self.path:
             return ['coherence', 'consistency', 'fluency', 'relevance']
         if 'Newsroom' in self.path:
             return ['coherence', 'fluency', 'informativeness', 'relevance']
-        if 'Rank19' in self.path or 'QAGS' in self.path:
-            return ['fact']

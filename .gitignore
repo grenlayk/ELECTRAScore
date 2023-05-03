@@ -165,3 +165,4 @@ temp/
 .DS_Store
 data/Newsroom/scores.pkl
 data/SummEval/scores.pkl
+.vscode/
