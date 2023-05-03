@@ -1,14 +1,15 @@
 import argparse
-import os
 import time
 import numpy as np
 from utils import *
 from functools import partial
 import torch
+from tqdm import tqdm
 
 
 SRC_HYPO = read_file_to_list('data/files/src_hypo_prompt.txt')
 REF_HYPO = read_file_to_list('data/files/ref_hypo_prompt.txt')
+
 
 class Scorer:
     """ Support BERTScore, BARTScore """
@@ -110,10 +111,12 @@ class Scorer:
                 from electra_score import ELECTRAScorer
 
                 electra_scorer = ELECTRAScorer(device=self.device)
-                print(f'ELECTRAScorer setup finished. Begin calculating ELECTRAScore.')
+                print(f'ELECTRAScorer setup finished. \
+                      Begin calculating ELECTRAScore.')
 
                 start = time.time()
-                for sys_name in self.sys_names:
+
+                for sys_name in tqdm(self.sys_names):
                     sys_lines = self.get_sys_lines(sys_name)
                     scores = electra_scorer.score(sys_lines)
                     scores_mean = electra_scorer.score(
@@ -128,6 +131,7 @@ class Scorer:
                     scores_percent_75 = electra_scorer.score(
                         sys_lines, sent_agg_func=partial(
                         torch.quantile, q=0.75))
+
                     counter = 0
                     for doc_id in self.data:
                         self.data[doc_id]['sys_summs'][sys_name]['scores'].update({
@@ -139,7 +143,8 @@ class Scorer:
                             f'{metric_name}_percentile_75': scores_percent_75[counter],
                         })
                         counter += 1
-                print(f'Finished calculating ELECTRAScore, time passed {time.time() - start}s.')
+                print(f'Finished calculating ELECTRAScore, \
+                      time passed {time.time() - start}s.')
 
             elif metric_name == 'bart_score' or metric_name == 'bart_score_cnn' or metric_name == 'bart_score_para':
                 """ Vanilla BARTScore, BARTScore-CNN, BARTScore-CNN-Para """
