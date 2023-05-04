@@ -1,12 +1,13 @@
 from typing import Callable, List, Optional
 
-import nltk
 import numpy as np
 import torch
 from datasets import Dataset
 from torch.utils.data import DataLoader
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           DataCollatorWithPadding)
+
+from utils import split_into_sentences
 
 
 class ELECTRAScorer:
@@ -37,7 +38,7 @@ class ELECTRAScorer:
 
         if sent_agg_func is not None:
             # Split texts to sentenses
-            text_sentences = [nltk.sent_tokenize(text) for text in texts]
+            text_sentences = [split_into_sentences(text) for text in texts]
             len_maps = np.cumsum([len(x) for x in text_sentences])
             sentences = [sent for text in text_sentences for sent in text]
             tokenized_data = Dataset.from_dict({"text": sentences}).map(

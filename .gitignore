@@ -163,6 +163,5 @@ cython_debug/
 models/
 temp/
 .DS_Store
-data/Newsroom/scores.pkl
-data/SummEval/scores.pkl
+*scores.pkl
 .vscode/
