@@ -137,40 +137,22 @@ electra_score_min              0.363339      0.29292
 
 ## Datasets
 
-### Newsroom dataset
+### Newsroom dataset 
 
-We downloaded data manually from [official webpage](https://lil.nlp.cornell.edu/newsroom/download/index.html) after signing a licence agreement. 
+Human evaluation data can be downloaded from [official GitHub repo](https://github.com/lil-lab/newsroom/blob/master/humaneval/newsroom-human-eval.csv). 
 
-Alternative link to [HuggingFace page](https://huggingface.co/datasets/newsroom).
-
-```Python
-from datasets import load_dataset
-
-dataset = load_dataset("newsroom")
-```
-
-Another alternative is usage of BARTScore's `data.pkl` from [Newsroom folder](https://github.com/neulab/BARTScore/tree/main/SUM/Newsroom).
+Alternative way is usage of BARTScore's `data.pkl` from [Newsroom folder](https://github.com/neulab/BARTScore/tree/main/SUM/Newsroom).
 
 ### SummEval dataset
 
-Human annotations for summaries were downloaded manually as well, from [official GitHub repo](https://github.com/Yale-LILY/SummEval#human-annotations).
+Human annotations for summaries can be downloaded from [official GitHub repo](https://github.com/Yale-LILY/SummEval#human-annotations) as well.
 
 Alternative link to [HuggingFace page](https://huggingface.co/datasets/mteb/summeval).
-
-```Python
-from datasets import load_dataset
-
-dataset = load_dataset("mteb/summeval")
-```
 
 Another alternative is usage of BARTScore's `data.pkl` from [SummEval folder](https://github.com/neulab/BARTScore/tree/main/SUM/SummEval).
 
 ### CoLA dataset
 
-Downloaded manually from official [web page](https://nyu-mll.github.io/CoLA/). However it can be used throught [HuggingFace](https://huggingface.co/datasets/glue/viewer/cola/train):
+Data can be downloaded from official [web page](https://nyu-mll.github.io/CoLA/). 
 
-```Python
-from datasets import load_dataset
-
-dataset = load_dataset("glue", "cola")
-```
+Alternative link to [HuggingFace page](https://huggingface.co/datasets/glue/viewer/cola/train):
