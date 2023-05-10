@@ -165,4 +165,4 @@ temp/
 .DS_Store
 *scores.pkl
 .vscode/
-data_augmentation/data/tmp
+cola_augmentation/data/tmp
