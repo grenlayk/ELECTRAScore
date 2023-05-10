@@ -11,6 +11,7 @@ python3 gpt2_train.py --seed 13 --model_name_or_path grenlayk/gpt2-medium-social
 
 python3 generate_dataset.py --dataset_name cola --seed 13 --model_name_or_path data/tmp/gpt2-medium-socialiqa-8-seed-13/ --output_dir data/tmp --strategy topk --num_tries ${num_tries}
 
+python3 parse.py data/tmp/df_gen_topk_${num_tries}_sampling.csv
 
 # You also can use original version from CONDA authors:
 # Usage: $ sh scripts/tune_cola.sh 1 data/tmp cola

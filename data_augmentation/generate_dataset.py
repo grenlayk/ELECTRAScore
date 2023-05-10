@@ -14,23 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Fine-tuning the library models for causal language modeling (GPT, GPT-2, CTRL, ...)
+Fine-tuning the library models for causal language modeling
+(GPT, GPT-2, CTRL, ...)
 on a text file or a dataset without using HuggingFace Trainer.
 
-Here is the full list of checkpoints on the hub that can be fine-tuned by this script:
+Here is the full list of checkpoints on the hub that can be fine-tuned
+by this script:
 https://huggingface.co/models?filter=text-generation
 """
-# You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
+# You can also adapt this script on your own causal language modeling task.
+# Pointers for this are left as comments.
 
-"""
-Original file can be found here:
-https://github.com/dheeraj7596/CONDA/blob/main/generate_dataset.py
-
-The file was modified in order to add instructions for CoLA dataset.
-(Lines 315, 386-395)
-"""
-
-
+# Original file can be found here:
+# https://github.com/dheeraj7596/CONDA/blob/main/generate_dataset.py
+# The file was modified in order to add instructions for CoLA dataset.
+# (Lines 315, 386-395)
 import argparse
 import pickle
 import pandas as pd
@@ -73,7 +71,8 @@ MODEL_CONFIG_CLASSES = list(MODEL_MAPPING.keys())
 MODEL_TYPES = tuple(conf.model_type for conf in MODEL_CONFIG_CLASSES)
 
 
-def generate(tokenizer, model, q_str, a_str, strategy, num_tries=5, batch_size=150):
+def generate(
+        tokenizer, model, q_str, a_str, strategy, num_tries=5, batch_size=150):
     model.eval()
     start_question_tag = "question :"
     end_question_tag = "\n"
@@ -178,13 +177,16 @@ def parse_args():
         help="The configuration name of the dataset to use (via the datasets library).",
     )
     parser.add_argument(
-        "--train_file", type=str, default=None, help="A csv or a json file containing the training data."
+        "--train_file", type=str, default=None, 
+        help="A csv or a json file containing the training data."
     )
     parser.add_argument(
-        "--validation_file", type=str, default=None, help="A csv or a json file containing the validation data."
+        "--validation_file", type=str, default=None, 
+        help="A csv or a json file containing the validation data."
     )
     parser.add_argument(
-        "--analyze_file", type=str, default=None, help="A csv or a json file containing the analysis data."
+        "--analyze_file", type=str, default=None,
+        help="A csv or a json file containing the analysis data."
     )
     parser.add_argument(
         "--validation_split_percentage",
@@ -232,8 +234,12 @@ def parse_args():
         default=5e-5,
         help="Initial learning rate (after the potential warmup period) to use.",
     )
-    parser.add_argument("--weight_decay", type=float, default=0.0, help="Weight decay to use.")
-    parser.add_argument("--num_train_epochs", type=int, default=3, help="Total number of training epochs to perform.")
+    parser.add_argument(
+        "--weight_decay", type=float, default=0.0,
+        help="Weight decay to use.")
+    parser.add_argument(
+        "--num_train_epochs", type=int, default=3,
+        help="Total number of training epochs to perform.")
     parser.add_argument(
         "--max_train_steps",
         type=int,
@@ -278,19 +284,27 @@ def parse_args():
         help="The number of processes to use for the preprocessing.",
     )
     parser.add_argument(
-        "--overwrite_cache", type=bool, default=False, help="Overwrite the cached training and evaluation sets"
+        "--overwrite_cache", type=bool, default=False,
+        help="Overwrite the cached training and evaluation sets"
     )
     parser.add_argument(
-        "--no_keep_linebreaks", action="store_true", help="Do not keep line breaks when using TXT files."
+        "--no_keep_linebreaks", action="store_true",
+        help="Do not keep line breaks when using TXT files."
     )
     parser.add_argument(
-        "--analyze_answers", action="store_true", help="Check answers in generated contexts"
+        "--analyze_answers", action="store_true",
+        help="Check answers in generated contexts"
     )
-    parser.add_argument("--push_to_hub", action="store_true", help="Whether or not to push the model to the Hub.")
     parser.add_argument(
-        "--hub_model_id", type=str, help="The name of the repository to keep in sync with the local `output_dir`."
+        "--push_to_hub", action="store_true", 
+        help="Whether or not to push the model to the Hub.")
+    parser.add_argument(
+        "--hub_model_id", type=str, 
+        help="The name of the repository to keep in sync with the local `output_dir`."
     )
-    parser.add_argument("--hub_token", type=str, help="The token to use to push to the Model Hub.")
+    parser.add_argument(
+        "--hub_token", type=str, 
+        help="The token to use to push to the Model Hub.")
     args = parser.parse_args()
 
     # Sanity checks
@@ -394,14 +408,16 @@ def generation_handler(dataset_name, tokenizer, model, strategy, num_tries):
                 labels += ["positive"] * args.num_tries
             else:
                 labels += ["negative"] * args.num_tries
-    df = pd.DataFrame.from_dict({"generated_context": contexts, "label": labels})
+    df = pd.DataFrame.from_dict(
+        {"generated_context": contexts, "label": labels})
     return df
 
 
 if __name__ == "__main__":
     args = parse_args()
 
-    # Initialize the accelerator. We will let the accelerator handle device placement for us in this example.
+    # Initialize the accelerator. We will let the accelerator handle device
+    # placement for us in this example.
     accelerator = Accelerator()
     # Make one log on every process with the configuration for debugging.
     logging.basicConfig(
@@ -411,9 +427,12 @@ if __name__ == "__main__":
     )
     logger.info(accelerator.state)
 
-    # Setup logging, we only want one process per machine to log things on the screen.
-    # accelerator.is_local_main_process is only True for one process per machine.
-    logger.setLevel(logging.INFO if accelerator.is_local_main_process else logging.ERROR)
+    # Setup logging, we only want one process per machine to log things
+    # on the screen.
+    # accelerator.is_local_main_process is only True for one process
+    # per machine.
+    logger.setLevel(
+        logging.INFO if accelerator.is_local_main_process else logging.ERROR)
     if accelerator.is_local_main_process:
         datasets.utils.logging.set_verbosity_warning()
         transformers.utils.logging.set_verbosity_info()
@@ -438,12 +457,14 @@ if __name__ == "__main__":
             os.makedirs(args.output_dir, exist_ok=True)
     accelerator.wait_for_everyone()
 
-    # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at
+    # See more about loading any type of standard or custom dataset
+    # (from files, python dict, pandas DataFrame, etc) at
     # https://huggingface.co/docs/datasets/loading_datasets.html.
 
     # Load pretrained model and tokenizer
     #
-    # In distributed training, the .from_pretrained methods guarantee that only one local process can concurrently
+    # In distributed training, the .from_pretrained methods guarantee that
+    # only one local process can concurrently
     # download model & vocab.
     if args.config_name:
         config = AutoConfig.from_pretrained(args.config_name)
@@ -451,15 +472,19 @@ if __name__ == "__main__":
         config = AutoConfig.from_pretrained(args.model_name_or_path)
     else:
         config = CONFIG_MAPPING[args.model_type]()
-        logger.warning("You are instantiating a new config instance from scratch.")
+        logger.warning(
+            "You are instantiating a new config instance from scratch.")
 
     if args.tokenizer_name:
-        tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_name, use_fast=not args.use_slow_tokenizer)
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.tokenizer_name, use_fast=not args.use_slow_tokenizer)
     elif args.model_name_or_path:
-        tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path, use_fast=not args.use_slow_tokenizer)
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.model_name_or_path, use_fast=not args.use_slow_tokenizer)
     else:
         raise ValueError(
-            "You are instantiating a new tokenizer from scratch. This is not supported by this script."
+            "You are instantiating a new tokenizer from scratch. \
+            This is not supported by this script."
             "You can do it from another script, save it, and load it from here, using --tokenizer_name."
         )
     tokenizer.pad_token = tokenizer.eos_token
@@ -477,6 +502,9 @@ if __name__ == "__main__":
     model.to(device='cuda')
     model.resize_token_embeddings(len(tokenizer))
 
-    df = generation_handler(args.dataset_name, tokenizer, model, strategy=args.strategy, num_tries=args.num_tries)
-    df.to_csv(os.path.join(args.output_dir, "df_gen_" + args.strategy + "_" + str(args.num_tries) + "_sampling.csv"),
-              index=False)
+    df = generation_handler(
+        args.dataset_name, tokenizer, model,
+        strategy=args.strategy, num_tries=args.num_tries)
+    df.to_csv(
+        os.path.join(args.output_dir, "df_gen_" + args.strategy + "_" + str(args.num_tries) + "_sampling.csv"),
+        index=False)

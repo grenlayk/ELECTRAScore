@@ -23,6 +23,6 @@ To tune GPT2-Medium on your own QA dataset refer to `scripts/tune_socialiqa.sh`.
 
 For domain adaptation on CoLA dataset and data generarion run this script:
 ```shell script
-$ scripts/tune_cola.sh 1000
+$ scripts/tune_cola.sh 1500
 ```
 where first argument is number of generated samples.
