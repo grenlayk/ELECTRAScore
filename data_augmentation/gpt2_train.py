@@ -366,7 +366,7 @@ def main():
     def tokenize_function(examples):
         res = tokenizer(examples[text_column_name],
                         max_length=tokenizer.model_max_length,  # Pad & truncate all sentences.
-                        pad_to_max_length=True,
+                        padding='max_length',
                         truncation=True,
                         )
         res["labels"] = torch.tensor(res["input_ids"]).masked_fill(torch.tensor(res["attention_mask"]) == 0,
@@ -467,7 +467,8 @@ def main():
             "weight_decay": 0.0,
         },
     ]
-    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate)
+    optimizer = torch.optim.AdamW(
+        optimizer_grouped_parameters, lr=args.learning_rate)
 
     # Prepare everything with our `accelerator`.
     if args.analyze_answers:

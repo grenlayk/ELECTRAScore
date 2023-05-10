@@ -11,7 +11,7 @@ python3 gpt2_train.py --seed 13 --model_name_or_path grenlayk/gpt2-medium-social
 
 python3 generate_dataset.py --dataset_name cola --seed 13 --model_name_or_path data/tmp/gpt2-medium-socialiqa-8-seed-13/ --output_dir data/tmp --strategy topk --num_tries ${num_tries}
 
-python3 parse.py data/tmp/df_gen_topk_${num_tries}_sampling.csv
+python3 parse.py data/tmp data/tmp/df_gen_topk_${num_tries}_sampling.csv
 
 # You also can use original version from CONDA authors:
 # Usage: $ sh scripts/tune_cola.sh 1 data/tmp cola
@@ -25,3 +25,5 @@ python3 parse.py data/tmp/df_gen_topk_${num_tries}_sampling.csv
 # CUDA_VISIBLE_DEVICES=${gpu} python3 gpt2_train.py --seed 13 --model_name_or_path ${tmp}/gpt2-medium-no-trainer/ --train_file data/cls/${dataset}/train_qac_13.csv --output_dir ${tmp}/gpt2-medium-socialiqa-8-seed-13/ --per_device_train_batch_size 2 --gradient_accumulation_steps 512 --learning_rate 0.0005 --num_warmup_steps 100
 
 # CUDA_VISIBLE_DEVICES=${gpu} python3 generate_dataset.py --dataset_name ${dataset} --seed 13 --model_name_or_path ${tmp}/gpt2-medium-socialiqa-8-seed-13/ --output_dir ${tmp} --strategy topk --num_tries 450
+
+# python3 combine.py ${tmp} data/cls/${dataset}/train/train_13.csv ${tmp}/df_gen_topk_450_sampling.csv

@@ -105,7 +105,8 @@ def generate(
                     do_sample=True,
                     top_k=20,
                     max_length=200,
-                    num_return_sequences=n
+                    num_return_sequences=n,
+                    pad_token_id=tokenizer.eos_token_id
                 )
                 sample_outputs += temp
         elif strategy == "topp":
@@ -116,7 +117,8 @@ def generate(
                     do_sample=True,
                     top_p=0.95,
                     max_length=200,
-                    num_return_sequences=n
+                    num_return_sequences=n,
+                    pad_token_id=tokenizer.eos_token_id
                 )
                 sample_outputs += temp
     except Exception as e:
