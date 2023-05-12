@@ -116,7 +116,7 @@ class Scorer:
 
             elif metric_name == 'electra_score':
                 """ Vanilla ELECTRAScore """
-                from electra_score import ELECTRAScorer
+                from metrics.electra_score import ELECTRAScorer
 
                 electra_scorer = ELECTRAScorer(device=self.device)
                 print('ELECTRAScorer setup finished. \
@@ -162,7 +162,7 @@ class Scorer:
                   metric_name == 'bart_score_cnn' or
                   metric_name == 'bart_score_para'):
                 """ Vanilla BARTScore, BARTScore-CNN, BARTScore-CNN-Para """
-                from bart_score import BARTScorer
+                from metrics.bart_score import BARTScorer
 
                 # Set up BARTScore
                 if 'cnn' in metric_name:
@@ -232,7 +232,7 @@ class Scorer:
 
             elif metric_name.startswith('prompt'):
                 """ BARTScore adding prompts """
-                from bart_score import BARTScorer
+                from metrics.bart_score import BARTScorer
 
                 def prefix_prompt(texts_list, p):
                     new_list = []

@@ -161,12 +161,12 @@ cython_debug/
 
 # added manually
 models/
-temp/
-cola_augmentation/data/tmp
-postprocessing/data
+electra_tuning/data
 
 .DS_Store
 .vscode/
 
+*temp*
+*tmp*
 *scores.pkl
 *api_key
