@@ -162,7 +162,10 @@ cython_debug/
 # added manually
 models/
 temp/
-.DS_Store
-*scores.pkl
-.vscode/
 cola_augmentation/data/tmp
+
+.DS_Store
+.vscode/
+
+*scores.pkl
+*api_key
