@@ -8,9 +8,6 @@ from tqdm import tqdm
 
 from utils import detokenize, read_file_to_list, read_pickle, save_pickle
 
-SRC_HYPO = read_file_to_list('data/files/src_hypo_prompt.txt')
-REF_HYPO = read_file_to_list('data/files/ref_hypo_prompt.txt')
-
 
 class Scorer:
     """ Support BERTScore, BARTScore """
@@ -118,7 +115,9 @@ class Scorer:
                 """ Vanilla ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
 
-                electra_scorer = ELECTRAScorer(device=self.device)
+                electra_scorer = ELECTRAScorer(
+                    checkpoint="grenlayk/electra-large-cola",
+                    device=self.device)
                 print('ELECTRAScorer setup finished. \
                       Begin calculating ELECTRAScore.')
 
@@ -133,12 +132,6 @@ class Scorer:
                         sys_lines, sent_agg_func=torch.min)
                     scores_median = electra_scorer.score(
                         sys_lines, sent_agg_func=torch.median)
-                    scores_percent_25 = electra_scorer.score(
-                        sys_lines, sent_agg_func=partial(
-                            torch.quantile, q=0.25))
-                    scores_percent_75 = electra_scorer.score(
-                        sys_lines, sent_agg_func=partial(
-                            torch.quantile, q=0.75))
 
                     counter = 0
                     for doc_id in self.data:
@@ -149,19 +142,90 @@ class Scorer:
                                 f'{metric_name}_min': scores_min[counter],
                                 f'{metric_name}_median':
                                     scores_median[counter],
-                                f'{metric_name}_percentile_25':
-                                    scores_percent_25[counter],
-                                f'{metric_name}_percentile_75':
-                                    scores_percent_75[counter],
                             })
                         counter += 1
                 print(f'Finished calculating ELECTRAScore, \
                       time passed {time.time() - start}s.')
 
+            elif metric_name == 'electra_score_exteneded':
+                """ELECTRAScore with ELECTRA tuned on extended CoLA dataset"""
+                from metrics.electra_score import ELECTRAScorer
+
+                electra_scorer = ELECTRAScorer(
+                    checkpoint="grenlayk/electra-large-cola-extended",
+                    device=self.device)
+                print('ELECTRAScorer on extended CoLA setup finished. \
+                      Begin calculating ELECTRAScore.')
+
+                start = time.time()
+
+                for sys_name in tqdm(self.sys_names):
+                    sys_lines = self.get_sys_lines(sys_name)
+                    scores = electra_scorer.score(sys_lines)
+                    scores_mean = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.mean)
+                    scores_min = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.min)
+                    scores_median = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.median)
+
+                    counter = 0
+                    for doc_id in self.data:
+                        self.data[doc_id]['sys_summs'][sys_name][
+                            'scores'].update({
+                                f'{metric_name}_ext': scores[counter],
+                                f'{metric_name}_mean_ext':
+                                    scores_mean[counter],
+                                f'{metric_name}_min_ext': scores_min[counter],
+                                f'{metric_name}_median_ext':
+                                    scores_median[counter],
+                            })
+                        counter += 1
+                print(f'Finished calculating ELECTRAScore on extended CoLA, \
+                      time passed {time.time() - start}s.')
+
+            elif metric_name == 'electra_score_exteneded_chatgpt':
+                """ELECTRAScore with ELECTRA tuned on extended CoLA dataset \
+                    with ChatGPT labels"""
+                from metrics.electra_score import ELECTRAScorer
+
+                electra_scorer = ELECTRAScorer(
+                    checkpoint="grenlayk/electra-large-cola-extended-chatgpt",
+                    device=self.device)
+                print('ELECTRAScorer on extended CoLA with ChatGPT labels \
+                      setup finished. Begin calculating ELECTRAScore.')
+
+                start = time.time()
+
+                for sys_name in tqdm(self.sys_names):
+                    sys_lines = self.get_sys_lines(sys_name)
+                    scores = electra_scorer.score(sys_lines)
+                    scores_mean = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.mean)
+                    scores_min = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.min)
+                    scores_median = electra_scorer.score(
+                        sys_lines, sent_agg_func=torch.median)
+
+                    counter = 0
+                    for doc_id in self.data:
+                        self.data[doc_id]['sys_summs'][sys_name][
+                            'scores'].update({
+                                f'{metric_name}_ext_chatgpt': scores[counter],
+                                f'{metric_name}_mean_ext_chatgpt':
+                                    scores_mean[counter],
+                                f'{metric_name}_min_ext_chatgpt':
+                                    scores_min[counter],
+                                f'{metric_name}_median_ext_chatgpt':
+                                    scores_median[counter],
+                            })
+                        counter += 1
+                print(f'Finished calculating ELECTRAScore on extended CoLA \
+                      with ChatGPT labels, time passed {time.time() - start}s')
+
             elif (metric_name == 'bart_score' or
-                  metric_name == 'bart_score_cnn' or
-                  metric_name == 'bart_score_para'):
-                """ Vanilla BARTScore, BARTScore-CNN, BARTScore-CNN-Para """
+                  metric_name == 'bart_score_cnn'):
+                """ Vanilla BARTScore, BARTScore-CNN """
                 from metrics.bart_score import BARTScorer
 
                 # Set up BARTScore
@@ -169,11 +233,6 @@ class Scorer:
                     bart_scorer = BARTScorer(
                         device=self.device,
                         checkpoint='facebook/bart-large-cnn')
-                elif 'para' in metric_name:
-                    bart_scorer = BARTScorer(
-                        device=self.device,
-                        checkpoint='facebook/bart-large-cnn')
-                    bart_scorer.load()
                 else:
                     bart_scorer = BARTScorer(
                         device=self.device, checkpoint='facebook/bart-large')
@@ -230,199 +289,41 @@ class Scorer:
                 print(f'Finished calculating BARTScore, \
                       time passed {time.time() - start}s.')
 
-            elif metric_name.startswith('prompt'):
-                """ BARTScore adding prompts """
-                from metrics.bart_score import BARTScorer
-
-                def prefix_prompt(texts_list, p):
-                    new_list = []
-                    for x in texts_list:
-                        new_list.append(p + ', ' + x)
-                    return new_list
-
-                def suffix_prompt(texts_list, p):
-                    new_list = []
-                    for x in texts_list:
-                        new_list.append(x + ' ' + p + ',')
-                    return new_list
-
-                if 'cnn' in metric_name:
-                    name = 'bart_score_cnn'
-                    bart_scorer = BARTScorer(
-                        device=self.device,
-                        checkpoint='facebook/bart-large-cnn')
-                elif 'para' in metric_name:
-                    name = 'bart_score_para'
-                    bart_scorer = BARTScorer(
-                        device=self.device,
-                        checkpoint='facebook/bart-large-cnn')
-                    bart_scorer.load()
-                else:
-                    name = 'bart_score'
-                    bart_scorer = BARTScorer(
-                        device=self.device, checkpoint='facebook/bart-large')
-
-                print('BARTScore-P setup finished. \
-                      Begin calculating BARTScore-P.')
-                start = time.time()
-                # Keep capitalization, detokenize everything
-                src_lines = self.get_src_lines()
-                src_lines = [detokenize(line) for line in src_lines]
-                if not self.multi_ref:
-                    ref_lines = [
-                        detokenize(line) for line in self.single_ref_lines]
-                else:
-                    ref_lines = [[detokenize(text) for text in line]
-                                 for line in self.multi_ref_lines]
-
-                # SRC -> HYPO prompt
-                if 'src' in metric_name:
-                    for prompt in SRC_HYPO:
-                        for sys_name in self.sys_names:
-                            sys_lines = self.get_sys_lines(sys_name)
-                            sys_lines = [
-                                detokenize(line) for line in sys_lines]
-                            src_hypo_en = bart_scorer.score(
-                                suffix_prompt(src_lines, prompt),
-                                sys_lines, batch_size=4)
-                            src_hypo_de = bart_scorer.score(
-                                src_lines, prefix_prompt(sys_lines, prompt),
-                                batch_size=4)
-                            counter = 0
-                            for doc_id in self.data:
-                                self.data[doc_id]['sys_summs'][sys_name][
-                                    'scores'].update({
-                                        f'{name}_src_hypo_en_{prompt}':
-                                            src_hypo_en[counter],
-                                        f'{name}_src_hypo_de_{prompt}':
-                                            src_hypo_de[counter]
-                                    })
-                                counter += 1
-
-                # REF <-> HYPO prompt
-                if 'ref' in metric_name:
-                    for prompt in REF_HYPO:
-                        for sys_name in self.sys_names:
-                            sys_lines = self.get_sys_lines(sys_name)
-                            sys_lines = [
-                                detokenize(line) for line in sys_lines]
-                            if not self.multi_ref:
-                                ref_hypo_en = np.array(
-                                    bart_scorer.score(
-                                        suffix_prompt(ref_lines, prompt),
-                                        sys_lines, batch_size=4))
-                                hypo_ref_en = np.array(
-                                    bart_scorer.score(
-                                        suffix_prompt(sys_lines, prompt),
-                                        ref_lines, batch_size=4))
-                                ref_hypo_de = np.array(
-                                    bart_scorer.score(
-                                        ref_lines,
-                                        prefix_prompt(sys_lines, prompt),
-                                        batch_size=4)
-                                    )
-                                hypo_ref_de = np.array(
-                                    bart_scorer.score(
-                                        sys_lines,
-                                        prefix_prompt(ref_lines, prompt),
-                                        batch_size=4)
-                                    )
-                            else:
-                                ref_hypo_en = np.zeros(len(sys_lines))
-                                hypo_ref_en = np.zeros(len(sys_lines))
-                                ref_hypo_de = np.zeros(len(sys_lines))
-                                hypo_ref_de = np.zeros(len(sys_lines))
-
-                                for i in range(self.ref_num):
-                                    ref_list = [x[i] for x in ref_lines]
-                                    curr_ref_hypo_en = np.array(
-                                        bart_scorer.score(
-                                            suffix_prompt(ref_list, prompt),
-                                            sys_lines, batch_size=4))
-                                    curr_hypo_ref_en = np.array(
-                                        bart_scorer.score(
-                                            suffix_prompt(sys_lines, prompt),
-                                            ref_list, batch_size=4))
-                                    curr_ref_hypo_de = np.array(
-                                        bart_scorer.score(
-                                            ref_list,
-                                            prefix_prompt(sys_lines, prompt),
-                                            batch_size=4))
-                                    curr_hypo_ref_de = np.array(
-                                        bart_scorer.score(
-                                            sys_lines,
-                                            prefix_prompt(ref_list, prompt),
-                                            batch_size=4)
-                                        )
-                                    ref_hypo_en += curr_ref_hypo_en
-                                    hypo_ref_en += curr_hypo_ref_en
-                                    ref_hypo_de += curr_ref_hypo_de
-                                    hypo_ref_de += curr_hypo_ref_de
-                                ref_hypo_en = ref_hypo_en / self.ref_num
-                                hypo_ref_en = hypo_ref_en / self.ref_num
-                                ref_hypo_de = ref_hypo_de / self.ref_num
-                                hypo_ref_de = hypo_ref_de / self.ref_num
-                            avg_f_en = (ref_hypo_en + hypo_ref_en) / 2
-                            avg_f_de = (ref_hypo_de + hypo_ref_de) / 2
-                            harm_f_en = ((ref_hypo_en * hypo_ref_en) /
-                                         (ref_hypo_en + hypo_ref_en))
-                            harm_f_de = ((ref_hypo_de * hypo_ref_de) /
-                                         (ref_hypo_de + hypo_ref_de))
-                            counter = 0
-                            for doc_id in self.data:
-                                self.data[doc_id]['sys_summs'][sys_name][
-                                    'scores'].update({
-                                        f'{name}_hypo_ref_en_{prompt}':
-                                            hypo_ref_en[counter],
-                                        f'{name}_ref_hypo_en_{prompt}':
-                                            ref_hypo_en[counter],
-                                        f'{name}_avg_f_en_{prompt}':
-                                            avg_f_en[counter],
-                                        f'{name}_harm_f_en_{prompt}':
-                                            harm_f_en[counter],
-                                        f'{name}_hypo_ref_de_{prompt}':
-                                            hypo_ref_de[counter],
-                                        f'{name}_ref_hypo_de_{prompt}':
-                                            ref_hypo_de[counter],
-                                        f'{name}_avg_f_de_{prompt}':
-                                            avg_f_de[counter],
-                                        f'{name}_harm_f_de_{prompt}':
-                                            harm_f_de[counter]
-                                    })
-                                counter += 1
-                print(f'Finished calculating BARTScore-P, \
-                      time passed {time.time() - start}s.')
-
             else:
                 raise NotImplementedError
 
 
 def main():
     parser = argparse.ArgumentParser(description='Scorer parameters')
-    parser.add_argument('--file', type=str, required=True,
-                        help='The data to load from.')
-    parser.add_argument('--device', type=str, default='cuda:0',
-                        help='The device to run on.')
-    parser.add_argument('--multi_ref', action='store_true', default=False,
-                        help='Whether we are using multiple references to \
-                            calculate scores.')
-    parser.add_argument('--output', type=str, required=True,
-                        help='The output path to save the calculated scores.')
-    parser.add_argument('--bert_score', action='store_true', default=False,
-                        help='Whether to calculate BERTScore')
-    parser.add_argument('--electra_score', action='store_true', default=False,
-                        help='Whether to calculate ELECTRAScore')
-    parser.add_argument('--bart_score', action='store_true', default=False,
-                        help='Whether to calculate BARTScore')
-    parser.add_argument('--bart_score_cnn', action='store_true', default=False,
-                        help='Whether to calculate BARTScore-CNN')
-    parser.add_argument('--bart_score_para', action='store_true',
-                        default=False,
-                        help='Whether to calculate BARTScore-Para')
-    parser.add_argument('--prompt', type=str, default=None,
-                        help='Whether to calculate BARTScore-P. \
-                        Can be bart_src, bart_ref, bart_cnn_src, '
-                             'bart_cnn_ref, bart_para_src, bart_para_ref')
+    parser.add_argument(
+        '--file', type=str, required=True, help='The data to load from.')
+    parser.add_argument(
+        '--device', type=str, default='cuda:0', help='The device to run on.')
+    parser.add_argument(
+        '--multi_ref', action='store_true', default=False,
+        help='Whether we are using multiple references to calculate scores.')
+    parser.add_argument(
+        '--output', type=str, required=True,
+        help='The output path to save the calculated scores.')
+    parser.add_argument(
+        '--bert_score', action='store_true', default=False,
+        help='Whether to calculate BERTScore')
+    parser.add_argument(
+        '--electra_score', action='store_true', default=False,
+        help='Whether to calculate ELECTRAScore')
+    parser.add_argument(
+        '--electra_score_extended', action='store_true', default=False,
+        help='Whether to calculate ELECTRAScore on extended CoLA')
+    parser.add_argument(
+        '--electra_score_extended_chatgpt', action='store_true', default=False,
+        help='Whether to calculate ELECTRAScore on extended CoLA with ChatGPT \
+            labels')
+    parser.add_argument(
+        '--bart_score', action='store_true', default=False,
+        help='Whether to calculate BARTScore')
+    parser.add_argument(
+        '--bart_score_cnn', action='store_true', default=False,
+        help='Whether to calculate BARTScore-CNN')
     args = parser.parse_args()
 
     scorer = Scorer(args.file, args.device, args.multi_ref)
@@ -436,13 +337,6 @@ def main():
         METRICS.append('electra_score')
     if args.bart_score_cnn:
         METRICS.append('bart_score_cnn')
-    if args.bart_score_para:
-        METRICS.append('bart_score_para')
-    if args.prompt is not None:
-        prompt = args.prompt
-        assert prompt in ['bart_src', 'bart_ref', 'bart_cnn_src',
-                          'bart_cnn_ref', 'bart_para_src', 'bart_para_ref']
-        METRICS.append(f'prompt_{prompt}')
 
     scorer.score(METRICS)
     scorer.save_data(args.output)

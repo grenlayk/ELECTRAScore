@@ -7,7 +7,7 @@ from torch.utils.data import DataLoader
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           DataCollatorWithPadding)
 
-from utils import split_into_sentences
+from metrics.utils import split_into_sentences
 
 
 class ELECTRAScorer:
@@ -15,7 +15,7 @@ class ELECTRAScorer:
         self,
         device='cuda:0',
         max_length=1024,
-        checkpoint="Aktsvigun/electra-large-cola"
+        checkpoint="grenlayk/electra-large-cola"
     ):
         # Set up model
         self.device = device
