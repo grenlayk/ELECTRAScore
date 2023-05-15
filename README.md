@@ -64,11 +64,11 @@ mv bart_score.pth models/bart_score.pth # downloaded file should be in models fo
 ### Scoring
 
 ```bash
-python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --multi_ref
-python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score  
+python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt --multi_ref
+python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt
 ```
 
-This code runs model on SummEval and Newsroom datasets, creating `SummEval/scores.pkl` and `Newsroom/scores.pkl` with  `bert_score`, `bart_score`, `bart_score_cnn` and `electra_score` scores in `"scores"` field. For SummEval dataset, please add the `--multi_ref` argument.
+This code runs model on SummEval and Newsroom datasets, creating `SummEval/scores.pkl` and `Newsroom/scores.pkl` with  `bert_score`, `bart_score`, `bart_score_cnn`, `electra_score`, `electra_score_extended` and `electra_score_extended_chatgpt` scores in `"scores"` field. For SummEval dataset, please add the `--multi_ref` argument.
 
 In order to evaluate metrics for SummEval and calculate spearman correlation score we can use this code:
 
@@ -98,9 +98,35 @@ metric                         spearman    kendalltau
 electra_score                  0.388793      0.31634
 electra_score_mean             0.355717      0.290085
 electra_score_min              0.350164      0.291133
-electra_score_percentile_25    0.330365      0.271945
 electra_score_median           0.296147      0.243935
-electra_score_percentile_75    0.243651      0.198214
+
+olya's
+electra_score           0.401178      0.327255
+electra_score_min       0.378091      0.315624
+electra_score_mean      0.376952      0.308115
+electra_score_median    0.288102      0.240813
+```
+
+Extended CoLA
+```
+Human metric: fluency
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score           0.413197      0.340404
+electra_score_mean      0.367449      0.303449
+electra_score_min       0.358558      0.301018
+electra_score_median    0.331841      0.278291
+```
+
+Extended CoLA chatgpt labels
+```
+Human metric: fluency
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score           0.416331      0.339389
+electra_score_mean      0.408736      0.336604
+electra_score_min       0.405182      0.338984
+electra_score_median    0.327238      0.27541
 ```
 
 In order to evaluate metrics for Newsroom and calculate spearman correlation score we can use this code:
@@ -133,6 +159,34 @@ electra_score_mean             0.434852      0.361143
 electra_score                  0.430446      0.360707
 electra_score_percentile_25    0.422495      0.349833
 electra_score_min              0.363339      0.29292
+
+olya's:
+electra_score_median    0.418112      0.343079
+electra_score_mean      0.39058       0.315147
+electra_score           0.345181      0.278768
+electra_score_min       0.307626      0.247172
+```
+
+Extended Cola
+```
+Human metric: fluency
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score_median    0.539686      0.439868
+electra_score           0.510749      0.40239
+electra_score_mean      0.480942      0.375257
+electra_score_min       0.407345      0.322078
+```
+
+Extended CoLA chatgpt labels
+```
+Human metric: fluency
+metric                         spearman    kendalltau
+---------------------------  ----------  ------------
+electra_score_median    0.425211      0.346667
+electra_score_mean      0.379102      0.302947
+electra_score           0.362951      0.290434
+electra_score_min       0.316666      0.250253
 ```
 
 ## Datasets

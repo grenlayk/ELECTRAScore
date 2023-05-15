@@ -1,12 +1,11 @@
 import argparse
 import time
-from functools import partial
 
 import numpy as np
 import torch
 from tqdm import tqdm
 
-from utils import detokenize, read_file_to_list, read_pickle, save_pickle
+from utils import detokenize, read_pickle, save_pickle
 
 
 class Scorer:
@@ -82,7 +81,7 @@ class Scorer:
                 start = time.time()
                 ref_lines = (self.single_ref_lines if not self.multi_ref else
                              self.multi_ref_lines)
-                for sys_name in self.sys_names:
+                for sys_name in tqdm(self.sys_names):
                     sys_lines = self.get_sys_lines(sys_name)
                     if not self.multi_ref:
                         P, R, F = bert_scorer.score(sys_lines, ref_lines)
@@ -103,22 +102,34 @@ class Scorer:
                     for doc_id in self.data:
                         self.data[doc_id]['sys_summs'][sys_name][
                             'scores'].update({
-                                'bert_score_p': P[counter],
-                                'bert_score_r': R[counter],
+                                # 'bert_score_p': P[counter],
+                                # 'bert_score_r': R[counter],
                                 'bert_score_f': F[counter]
                             })
                         counter += 1
                 print(f'Finished calculating BERTScore, time passed \
                       {time.time() - start}s.')
 
-            elif metric_name == 'electra_score':
+            elif (metric_name == 'electra_score' or
+                  metric_name == 'electra_score_extended' or
+                  metric_name == 'electra_score_extended_chatgpt'):
                 """ Vanilla ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
 
-                electra_scorer = ELECTRAScorer(
-                    checkpoint="grenlayk/electra-large-cola",
-                    device=self.device)
-                print('ELECTRAScorer setup finished. \
+                if metric_name == 'electra_score':
+                    electra_scorer = ELECTRAScorer(
+                        checkpoint="grenlayk/electra-large-cola",
+                        device=self.device)
+                elif metric_name == 'electra_score_extended':
+                    electra_scorer = ELECTRAScorer(
+                        checkpoint="grenlayk/electra-large-cola-extended",
+                        device=self.device)
+                else:
+                    electra_scorer = ELECTRAScorer(
+                        checkpoint="grenlayk/electra-large-cola-extended-chatgpt",
+                        device=self.device)
+
+                print(f'ELECTRAScorer for {metric_name} setup finished. \
                       Begin calculating ELECTRAScore.')
 
                 start = time.time()
@@ -144,84 +155,8 @@ class Scorer:
                                     scores_median[counter],
                             })
                         counter += 1
-                print(f'Finished calculating ELECTRAScore, \
+                print(f'Finished calculating ELECTRAScore ({metric_name}), \
                       time passed {time.time() - start}s.')
-
-            elif metric_name == 'electra_score_exteneded':
-                """ELECTRAScore with ELECTRA tuned on extended CoLA dataset"""
-                from metrics.electra_score import ELECTRAScorer
-
-                electra_scorer = ELECTRAScorer(
-                    checkpoint="grenlayk/electra-large-cola-extended",
-                    device=self.device)
-                print('ELECTRAScorer on extended CoLA setup finished. \
-                      Begin calculating ELECTRAScore.')
-
-                start = time.time()
-
-                for sys_name in tqdm(self.sys_names):
-                    sys_lines = self.get_sys_lines(sys_name)
-                    scores = electra_scorer.score(sys_lines)
-                    scores_mean = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.mean)
-                    scores_min = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.min)
-                    scores_median = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.median)
-
-                    counter = 0
-                    for doc_id in self.data:
-                        self.data[doc_id]['sys_summs'][sys_name][
-                            'scores'].update({
-                                f'{metric_name}_ext': scores[counter],
-                                f'{metric_name}_mean_ext':
-                                    scores_mean[counter],
-                                f'{metric_name}_min_ext': scores_min[counter],
-                                f'{metric_name}_median_ext':
-                                    scores_median[counter],
-                            })
-                        counter += 1
-                print(f'Finished calculating ELECTRAScore on extended CoLA, \
-                      time passed {time.time() - start}s.')
-
-            elif metric_name == 'electra_score_exteneded_chatgpt':
-                """ELECTRAScore with ELECTRA tuned on extended CoLA dataset \
-                    with ChatGPT labels"""
-                from metrics.electra_score import ELECTRAScorer
-
-                electra_scorer = ELECTRAScorer(
-                    checkpoint="grenlayk/electra-large-cola-extended-chatgpt",
-                    device=self.device)
-                print('ELECTRAScorer on extended CoLA with ChatGPT labels \
-                      setup finished. Begin calculating ELECTRAScore.')
-
-                start = time.time()
-
-                for sys_name in tqdm(self.sys_names):
-                    sys_lines = self.get_sys_lines(sys_name)
-                    scores = electra_scorer.score(sys_lines)
-                    scores_mean = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.mean)
-                    scores_min = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.min)
-                    scores_median = electra_scorer.score(
-                        sys_lines, sent_agg_func=torch.median)
-
-                    counter = 0
-                    for doc_id in self.data:
-                        self.data[doc_id]['sys_summs'][sys_name][
-                            'scores'].update({
-                                f'{metric_name}_ext_chatgpt': scores[counter],
-                                f'{metric_name}_mean_ext_chatgpt':
-                                    scores_mean[counter],
-                                f'{metric_name}_min_ext_chatgpt':
-                                    scores_min[counter],
-                                f'{metric_name}_median_ext_chatgpt':
-                                    scores_median[counter],
-                            })
-                        counter += 1
-                print(f'Finished calculating ELECTRAScore on extended CoLA \
-                      with ChatGPT labels, time passed {time.time() - start}s')
 
             elif (metric_name == 'bart_score' or
                   metric_name == 'bart_score_cnn'):
@@ -248,7 +183,7 @@ class Scorer:
                 else:
                     ref_lines = [[detokenize(text) for text in line]
                                  for line in self.multi_ref_lines]
-                for sys_name in self.sys_names:
+                for sys_name in tqdm(self.sys_names):
                     sys_lines = self.get_sys_lines(sys_name)
                     sys_lines = [detokenize(line) for line in sys_lines]
                     src_hypo = bart_scorer.score(
@@ -280,10 +215,10 @@ class Scorer:
                         self.data[doc_id]['sys_summs'][sys_name][
                             'scores'].update({
                                 f'{metric_name}_src_hypo': src_hypo[counter],
-                                f'{metric_name}_hypo_ref': hypo_ref[counter],
-                                f'{metric_name}_ref_hypo': ref_hypo[counter],
-                                f'{metric_name}_avg_f': avg_f[counter],
-                                f'{metric_name}_harm_f': harm_f[counter]
+                                # f'{metric_name}_hypo_ref': hypo_ref[counter],
+                                # f'{metric_name}_ref_hypo': ref_hypo[counter],
+                                # f'{metric_name}_avg_f': avg_f[counter],
+                                # f'{metric_name}_harm_f': harm_f[counter]
                             })
                         counter += 1
                 print(f'Finished calculating BARTScore, \
@@ -333,10 +268,14 @@ def main():
         METRICS.append('bert_score')
     if args.bart_score:
         METRICS.append('bart_score')
-    if args.electra_score:
-        METRICS.append('electra_score')
     if args.bart_score_cnn:
         METRICS.append('bart_score_cnn')
+    if args.electra_score:
+        METRICS.append('electra_score')
+    if args.electra_score_extended:
+        METRICS.append('electra_score_extended')
+    if args.electra_score_extended_chatgpt:
+        METRICS.append('electra_score_extended_chatgpt')
 
     scorer.score(METRICS)
     scorer.save_data(args.output)
