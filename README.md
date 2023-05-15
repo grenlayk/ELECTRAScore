@@ -64,8 +64,8 @@ mv bart_score.pth models/bart_score.pth # downloaded file should be in models fo
 ### Scoring
 
 ```bash
-python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt --multi_ref
-python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt
+python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device mps:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt --multi_ref
+python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device mps:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt
 ```
 
 This code runs model on SummEval and Newsroom datasets, creating `SummEval/scores.pkl` and `Newsroom/scores.pkl` with  `bert_score`, `bart_score`, `bart_score_cnn`, `electra_score`, `electra_score_extended` and `electra_score_extended_chatgpt` scores in `"scores"` field. For SummEval dataset, please add the `--multi_ref` argument.
@@ -78,56 +78,30 @@ python3 evaluate_stats.py --dataset SummEval
 
 Results:
 
-```
-Human metric: fluency
-metric                      spearman    kendalltau
------------------------  -----------  ------------
-bart_score_cnn_src_hypo   0.356487     0.292136
-bart_score_src_hypo       0.24802      0.202521
-bert_score_f              0.193229     0.157773
-rouge2_f                  0.158797     0.128203
-rouge1_f                  0.114974     0.0938505
-rougel_f                  0.104976     0.0841752
-```
 
-ELECTRAScore
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score                  0.388793      0.31634
-electra_score_mean             0.355717      0.290085
-electra_score_min              0.350164      0.291133
-electra_score_median           0.296147      0.243935
+metric                                 |  spearman  |  kendalltau
+------------------------------------- | ----------  |------------
+electra_score_extended_chatgpt         |  0.420827   |   0.344957
+electra_score_extended                |   0.414904    |  0.342361
+electra_score_extended_chatgpt_mean   |   0.400424   |   0.330969
+electra_score                         |   0.399629   |   0.329088
+electra_score_mean                    |   0.38889    |   0.318438
+electra_score_extended_mean           |   0.388041  |    0.320885
+electra_score_extended_chatgpt_min    |   0.385991  |    0.321542
+electra_score_extended_min             |  0.381002  |    0.318244
+bart_score_cnn_para (best) | 0.378 |
+electra_score_min            |            0.374256 |     0.312055
+bart_score_cnn_src_hypo       |           0.356303  |    0.291795
+electra_score_median           |          0.348027   |   0.2881
+electra_score_extended_median   |         0.338259    |  0.280573
+electra_score_extended_chatgpt_median |   0.314408     | 0.262911
+bart_score_src_hypo                    |  0.247883     | 0.202297
+bert_score_f                           |  0.192841     | 0.157257
+rouge2_f                   | 0.158797    | 0.128203
+rouge1_f                   | 0.114974    | 0.0938505
+rougel_f                   | 0.104976    | 0.0841752
 
-olya's
-electra_score           0.401178      0.327255
-electra_score_min       0.378091      0.315624
-electra_score_mean      0.376952      0.308115
-electra_score_median    0.288102      0.240813
-```
 
-Extended CoLA
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score           0.413197      0.340404
-electra_score_mean      0.367449      0.303449
-electra_score_min       0.358558      0.301018
-electra_score_median    0.331841      0.278291
-```
-
-Extended CoLA chatgpt labels
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score           0.416331      0.339389
-electra_score_mean      0.408736      0.336604
-electra_score_min       0.405182      0.338984
-electra_score_median    0.327238      0.27541
-```
 
 In order to evaluate metrics for Newsroom and calculate spearman correlation score we can use this code:
 
@@ -136,58 +110,29 @@ python3 evaluate_stats.py --dataset Newsroom
 ```
 
 Results:
-```
-Human metric: fluency
-metric                     spearman    kendalltau
------------------------  ----------  ------------
-bart_score_src_hypo       0.670134     0.563899
-bart_score_cnn_src_hypo   0.639777     0.540041
-bert_score_f              0.140051     0.108461
-rouge1_f                  0.103553     0.081811
-rougel_f                  0.064634     0.055283
-rouge2_f                  0.047841     0.032464
-```
 
-ELECTRAScore
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score_median           0.492731      0.401303
-electra_score_percentile_75    0.487944      0.395381
-electra_score_mean             0.434852      0.361143
-electra_score                  0.430446      0.360707
-electra_score_percentile_25    0.422495      0.349833
-electra_score_min              0.363339      0.29292
+metric                  |   spearman  |  kendalltau
+----------------------- | ---------- | ------------
+bart_score_best_prompt | 0.679 |
+bart_score_src_hypo                     | 0.670134    |  0.563899
+bart_score_cnn_src_hypo                 | 0.639777    |  0.540041
+electra_score_extended_median           | 0.545449    |  0.439608
+electra_score_extended_mean             | 0.51121     |  0.406235
+electra_score_extended                  | 0.498799    |  0.401015
+electra_score_median                    | 0.493861    |  0.395535
+electra_score_mean                      | 0.441431    |  0.357829
+electra_score_extended_min              | 0.438506    |  0.347084
+electra_score                           | 0.424298    |  0.344571
+electra_score_extended_chatgpt_median   | 0.409995    |  0.335636
+electra_score_extended_chatgpt_mean     | 0.401756    |  0.319755
+electra_score_extended_chatgpt          | 0.391315    |  0.321415
+electra_score_min                       | 0.339152    |  0.266694
+electra_score_extended_chatgpt_min      | 0.321303    |  0.252159
+bert_score_f                            | 0.140051    |  0.108461
+rouge1_f                                | 0.103553    |  0.081811
+rougel_f                                | 0.064634    |  0.055283
+rouge2_f                                | 0.047841    |  0.032464
 
-olya's:
-electra_score_median    0.418112      0.343079
-electra_score_mean      0.39058       0.315147
-electra_score           0.345181      0.278768
-electra_score_min       0.307626      0.247172
-```
-
-Extended Cola
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score_median    0.539686      0.439868
-electra_score           0.510749      0.40239
-electra_score_mean      0.480942      0.375257
-electra_score_min       0.407345      0.322078
-```
-
-Extended CoLA chatgpt labels
-```
-Human metric: fluency
-metric                         spearman    kendalltau
----------------------------  ----------  ------------
-electra_score_median    0.425211      0.346667
-electra_score_mean      0.379102      0.302947
-electra_score           0.362951      0.290434
-electra_score_min       0.316666      0.250253
-```
 
 ## Datasets
 
