@@ -81,25 +81,25 @@ Results:
 
 metric                                 |  spearman  |  kendalltau
 ------------------------------------- | ----------  |------------
-electra_score_extended_chatgpt         |  0.420827   |   0.344957
-electra_score_extended                |   0.414904    |  0.342361
-electra_score_extended_chatgpt_mean   |   0.400424   |   0.330969
-electra_score                         |   0.399629   |   0.329088
-electra_score_mean                    |   0.38889    |   0.318438
-electra_score_extended_mean           |   0.388041  |    0.320885
-electra_score_extended_chatgpt_min    |   0.385991  |    0.321542
-electra_score_extended_min             |  0.381002  |    0.318244
-bart_score_cnn_para (best) | 0.378 |
-electra_score_min            |            0.374256 |     0.312055
-bart_score_cnn_src_hypo       |           0.356303  |    0.291795
-electra_score_median           |          0.348027   |   0.2881
-electra_score_extended_median   |         0.338259    |  0.280573
-electra_score_extended_chatgpt_median |   0.314408     | 0.262911
-bart_score_src_hypo                    |  0.247883     | 0.202297
-bert_score_f                           |  0.192841     | 0.157257
-rouge2_f                   | 0.158797    | 0.128203
-rouge1_f                   | 0.114974    | 0.0938505
-rougel_f                   | 0.104976    | 0.0841752
+electra_score_extended_chatgpt         |  0.421    |   0.345
+electra_score_extended                |   0.415    |   0.342
+electra_score_extended_chatgpt_mean   |   0.4004   |   0.331
+electra_score                         |   0.3996   |   0.329
+electra_score_mean                    |   0.389    |   0.318
+electra_score_extended_mean           |   0.388    |   0.321
+electra_score_extended_chatgpt_min    |   0.386    |   0.322
+electra_score_extended_min            |   0.381    |   0.318
+bart_score_cnn_para (best bart_score) |   0.378    |
+electra_score_min                     |   0.374    |   0.312
+bart_score_cnn_src_hypo               |   0.356    |   0.292
+electra_score_median                  |   0.348    |   0.288
+electra_score_extended_median         |   0.338    |   0.281
+electra_score_extended_chatgpt_median |   0.314    |   0.263
+bart_score_src_hypo                   |   0.248    |   0.202
+bert_score_f                          |   0.193    |   0.157
+rouge2_f                              |   0.159    |   0.128
+rouge1_f                              |   0.115    |   0.094
+rougel_f                              |   0.105    |   0.084
 
 
 
@@ -113,25 +113,25 @@ Results:
 
 metric                  |   spearman  |  kendalltau
 ----------------------- | ---------- | ------------
-bart_score_best_prompt | 0.679 |
-bart_score_src_hypo                     | 0.670134    |  0.563899
-bart_score_cnn_src_hypo                 | 0.639777    |  0.540041
-electra_score_extended_median           | 0.545449    |  0.439608
-electra_score_extended_mean             | 0.51121     |  0.406235
-electra_score_extended                  | 0.498799    |  0.401015
-electra_score_median                    | 0.493861    |  0.395535
-electra_score_mean                      | 0.441431    |  0.357829
-electra_score_extended_min              | 0.438506    |  0.347084
-electra_score                           | 0.424298    |  0.344571
-electra_score_extended_chatgpt_median   | 0.409995    |  0.335636
-electra_score_extended_chatgpt_mean     | 0.401756    |  0.319755
-electra_score_extended_chatgpt          | 0.391315    |  0.321415
-electra_score_min                       | 0.339152    |  0.266694
-electra_score_extended_chatgpt_min      | 0.321303    |  0.252159
-bert_score_f                            | 0.140051    |  0.108461
-rouge1_f                                | 0.103553    |  0.081811
-rougel_f                                | 0.064634    |  0.055283
-rouge2_f                                | 0.047841    |  0.032464
+bart_score_omega_prompt (best bart_score) | 0.679 |
+bart_score_src_hypo                      | 0.670    |  0.564
+bart_score_cnn_src_hypo                  | 0.640    |  0.540
+electra_score_extended_median            | 0.545    |  0.440
+electra_score_extended_mean              | 0.511    |  0.406
+electra_score_extended                   | 0.499    |  0.401
+electra_score_median                     | 0.494    |  0.396
+electra_score_mean                       | 0.441    |  0.358
+electra_score_extended_min              | 0.439    |  0.347
+electra_score                           | 0.424    |  0.345
+electra_score_extended_chatgpt_median   | 0.410    |  0.336
+electra_score_extended_chatgpt_mean     | 0.402    |  0.320
+electra_score_extended_chatgpt          | 0.391    |  0.321
+electra_score_min                       | 0.339    |  0.267
+electra_score_extended_chatgpt_min      | 0.321    |  0.252
+bert_score_f                            | 0.140    |  0.108
+rouge1_f                                | 0.104    |  0.082
+rougel_f                                | 0.065    |  0.055
+rouge2_f                                | 0.049    |  0.032
 
 
 ## Datasets
