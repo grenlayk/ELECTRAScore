@@ -45,4 +45,4 @@ if __name__ == "__main__":
 
     dict_df["text"].replace("", np.nan, inplace=True)
     dict_df = dict_df.dropna(subset=["text"]).reset_index(drop=True)
-    dict_df.to_csv(os.path.join(base_path, "train_parsed.csv"), index=False)
+    dict_df.to_csv(os.path.join(base_path, "generated_data.csv"), index=False)
