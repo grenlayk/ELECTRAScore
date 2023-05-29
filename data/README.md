@@ -1,28 +1,26 @@
 # Datasets info
 
-## Datasets sources
-
 In our work we used 3 datasets: Newsroom, SummEval and CoLA.
 
-### Newsroom dataset 
+**Newsroom dataset**
 
-Human evaluation data can be downloaded from [official GitHub repo](https://github.com/lil-lab/newsroom/blob/master/humaneval/newsroom-human-eval.csv). 
+- Human evaluation data can be downloaded from [official GitHub repo](https://github.com/lil-lab/newsroom/blob/master/humaneval/newsroom-human-eval.csv). 
 
-Alternative way is usage of BARTScore's `data.pkl` from [Newsroom folder](https://github.com/neulab/BARTScore/tree/main/SUM/Newsroom).
+- Alternative way is usage of BARTScore's `data.pkl` from [Newsroom folder](https://github.com/neulab/BARTScore/tree/main/SUM/Newsroom).
 
-### SummEval dataset
+**SummEval dataset**
 
-Human annotations for summaries can be downloaded from [official GitHub repo](https://github.com/Yale-LILY/SummEval#human-annotations) as well.
+- Human annotations for summaries can be downloaded from [official GitHub repo](https://github.com/Yale-LILY/SummEval#human-annotations) as well.
 
-Alternative link to [HuggingFace page](https://huggingface.co/datasets/mteb/summeval).
+- Alternative link to [HuggingFace page](https://huggingface.co/datasets/mteb/summeval).
 
-Another alternative is usage of BARTScore's `data.pkl` from [SummEval folder](https://github.com/neulab/BARTScore/tree/main/SUM/SummEval).
+- Another alternative is usage of BARTScore's `data.pkl` from [SummEval folder](https://github.com/neulab/BARTScore/tree/main/SUM/SummEval).
 
-### CoLA dataset
+**CoLA dataset**
 
-Data can be downloaded from official [web page](https://nyu-mll.github.io/CoLA/). 
+- Data can be downloaded from official [web page](https://nyu-mll.github.io/CoLA/). 
 
-Alternative link to [HuggingFace page](https://huggingface.co/datasets/glue/viewer/cola/train):
+- Alternative link to [HuggingFace page](https://huggingface.co/datasets/glue/viewer/cola/train):
 
 ## Used data
 
