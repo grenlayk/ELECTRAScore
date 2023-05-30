@@ -26,3 +26,11 @@ For domain adaptation on CoLA dataset and data generarion run this script:
 $ scripts/tune_cola.sh 1500
 ```
 where first argument is number of generated samples.
+
+### Data
+
+Here we provide links to files which we used and created:
+- Raw generated samples ([link](https://drive.google.com/file/d/1mTobfflscj6xKVGmlmEf1qJAMUNSsXbT/view?usp=share_link))
+- Parsed generated samples ([link](https://drive.google.com/file/d/1mTobfflscj6xKVGmlmEf1qJAMUNSsXbT/view?usp=share_link))
+
+The post-processing details are in [electra_tuning](../electra_tuning) folder.
