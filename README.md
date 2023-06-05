@@ -30,7 +30,7 @@ In our work we use 3 modifications of ELECTRA model:
 2. ELECTRA fine-tuned on CoLA-E dataset ([HuggingFace link](https://huggingface.co/grenlayk/electra-large-cola-extended))
 3. ELECTRA fine-tuned on CoLA-ECL dataset ([HuggingFace link](https://huggingface.co/grenlayk/electra-large-cola-extended-chatgpt))
 
-Where CoLA-E and CoLA-ECL are extended versions of CoLA dataset. More info about these datasets can be found in [cola_augmentations](cola_augmentations) and [electra_tuning](electra_tuning) folders. More info about models fine-tuning is in [electra_tuning](electra_tuning) folder.
+Where CoLA-E and CoLA-ECL are extended versions of CoLA dataset. More info about these datasets can be found in [cola_augmentations](cola_augmentations) folder. More info about models fine-tuning is in [electra_tuning](electra_tuning) folder.
 
 ## How to run
 
