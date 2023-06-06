@@ -111,8 +111,8 @@ class Scorer:
                       {time.time() - start}s.')
 
             elif (metric_name == 'electra_score' or
-                  metric_name == 'electra_score_extended' or
-                  metric_name == 'electra_score_extended_chatgpt'):
+                  metric_name == 'electra_score_e' or
+                  metric_name == 'electra_score_ecl'):
                 """ Vanilla ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
 
@@ -120,7 +120,7 @@ class Scorer:
                     electra_scorer = ELECTRAScorer(
                         checkpoint="grenlayk/electra-large-cola",
                         device=self.device)
-                elif metric_name == 'electra_score_extended':
+                elif metric_name == 'electra_score_e':
                     electra_scorer = ELECTRAScorer(
                         checkpoint="grenlayk/electra-large-cola-extended",
                         device=self.device)
@@ -247,11 +247,11 @@ def main():
         '--electra_score', action='store_true', default=False,
         help='Whether to calculate ELECTRAScore')
     parser.add_argument(
-        '--electra_score_extended', action='store_true', default=False,
-        help='Whether to calculate ELECTRAScore on extended CoLA')
+        '--electra_score_e', action='store_true', default=False,
+        help='Whether to calculate ELECTRAScore with ELECTRA fine-tuned on CoLA-E')
     parser.add_argument(
-        '--electra_score_extended_chatgpt', action='store_true', default=False,
-        help='Whether to calculate ELECTRAScore on extended CoLA with ChatGPT \
+        '--electra_score_ecl', action='store_true', default=False,
+        help='Whether to calculate ELECTRAScore with ELECTRA fine-tuned on CoLA-ECL \
             labels')
     parser.add_argument(
         '--bart_score', action='store_true', default=False,
@@ -272,10 +272,10 @@ def main():
         METRICS.append('bart_score_cnn')
     if args.electra_score:
         METRICS.append('electra_score')
-    if args.electra_score_extended:
-        METRICS.append('electra_score_extended')
-    if args.electra_score_extended_chatgpt:
-        METRICS.append('electra_score_extended_chatgpt')
+    if args.electra_score_e:
+        METRICS.append('electra_score_e')
+    if args.electra_score_ecl:
+        METRICS.append('electra_score_ecl')
 
     scorer.score(METRICS)
     scorer.save_data(args.output)

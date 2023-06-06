@@ -36,12 +36,12 @@ Where CoLA-E and CoLA-ECL are extended versions of CoLA dataset. More info about
 
 ```bash
 # SummEval dataset
-python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt --multi_ref
+python3 score.py --file data/SummEval/data.pkl --output data/SummEval/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_e --electra_score_ecl --multi_ref
 # Newsroom dataset
-python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_extended --electra_score_extended_chatgpt
+python3 score.py --file data/Newsroom/data.pkl --output data/Newsroom/scores.pkl --device cuda:0 --bert_score --bart_score --bart_score_cnn --electra_score --electra_score_e --electra_score_ecl
 ```
 
-This code runs model on SummEval and Newsroom datasets, creating `SummEval/scores.pkl` and `Newsroom/scores.pkl` with  `bert_score`, `bart_score`, `bart_score_cnn`, `electra_score` (uses model 1), `electra_score_extended` (uses model 2) and `electra_score_extended_chatgpt` (uses model 3) scores in `"scores"` field. For SummEval dataset, please add the `--multi_ref` argument.
+This code runs model on SummEval and Newsroom datasets, creating `SummEval/scores.pkl` and `Newsroom/scores.pkl` with  `bert_score`, `bart_score`, `bart_score_cnn`, `electra_score` (uses model 1), `electra_score_e` (uses model 2) and `electra_score_ecl` (uses model 3) scores in `"scores"` field. For SummEval dataset, please add the `--multi_ref` argument.
 
 In order to evaluate metrics and calculate spearman correlation score we can use this code:
 
@@ -59,20 +59,20 @@ SummEval results:
 ```
 metric                                |  spearman  |  kendalltau
 ------------------------------------- | ---------- |------------
-electra_score_extended_chatgpt        |    0.421   |   0.345
-electra_score_extended                |    0.415   |   0.342
-electra_score_extended_chatgpt_mean   |    0.4004  |   0.331
+electra_score_ecl        |    0.421   |   0.345
+electra_score_e                |    0.415   |   0.342
+electra_score_ecl_mean   |    0.4004  |   0.331
 electra_score                         |    0.3996  |   0.329
 electra_score_mean                    |    0.389   |   0.318
-electra_score_extended_mean           |    0.388   |   0.321
-electra_score_extended_chatgpt_min    |    0.386   |   0.322
-electra_score_extended_min            |    0.381   |   0.318
+electra_score_e_mean           |    0.388   |   0.321
+electra_score_ecl_min    |    0.386   |   0.322
+electra_score_e_min            |    0.381   |   0.318
 bart_score_cnn_para (best bart_score) |    0.378   |
 electra_score_min                     |    0.374   |   0.312
 bart_score_cnn_src_hypo               |    0.356   |   0.292
 electra_score_median                  |    0.348   |   0.288
-electra_score_extended_median         |    0.338   |   0.281
-electra_score_extended_chatgpt_median |    0.314   |   0.263
+electra_score_e_median         |    0.338   |   0.281
+electra_score_ecl_median |    0.314   |   0.263
 bart_score_src_hypo                   |    0.248   |   0.202
 bert_score_f                          |    0.193   |   0.157
 rouge2_f                              |    0.159   |   0.128
@@ -88,18 +88,18 @@ metric                                  |  spearman  |  kendalltau
 bart_score_best                         |    0.679   |
 bart_score_src_hypo                     |    0.670   |  0.564
 bart_score_cnn_src_hypo                 |    0.640   |  0.540
-electra_score_extended_median           |    0.545   |  0.440
-electra_score_extended_mean             |    0.511   |  0.406
-electra_score_extended                  |    0.499   |  0.401
+electra_score_e_median           |    0.545   |  0.440
+electra_score_e_mean             |    0.511   |  0.406
+electra_score_e                  |    0.499   |  0.401
 electra_score_median                    |    0.494   |  0.396
 electra_score_mean                      |    0.441   |  0.358
-electra_score_extended_min              |    0.439   |  0.347
+electra_score_e_min              |    0.439   |  0.347
 electra_score                           |    0.424   |  0.345
-electra_score_extended_chatgpt_median   |    0.410   |  0.336
-electra_score_extended_chatgpt_mean     |    0.402   |  0.320
-electra_score_extended_chatgpt          |    0.391   |  0.321
+electra_score_ecl_median   |    0.410   |  0.336
+electra_score_ecl_mean     |    0.402   |  0.320
+electra_score_ecl          |    0.391   |  0.321
 electra_score_min                       |    0.339   |  0.267
-electra_score_extended_chatgpt_min      |    0.321   |  0.252
+electra_score_ecl_min      |    0.321   |  0.252
 bert_score_f                            |    0.140   |  0.108
 rouge1_f                                |    0.104   |  0.082
 rougel_f                                |    0.065   |  0.055
