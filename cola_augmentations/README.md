@@ -1,4 +1,4 @@
-# CoLA extention
+# CoLA extension
 
 This folder contains code to generate extra data for [CoLA dataset](https://nyu-mll.github.io/CoLA/). 
 
@@ -17,11 +17,11 @@ The framework requires QA datasets and target-task classification datasets.
 
 ### Commands
 
-If you want to create your own data slice for a domain adoptation, refer to `generate_cola_samples.ipynb` notebook.
+If you want to create your own data slice for a domain adaptation, refer to `generate_cola_samples.ipynb` notebook.
 
 To tune GPT2-Medium on your own QA dataset refer to `scripts/tune_socialiqa.sh`. QAC fine-tuned GPT2-Medium on SocialIQA dataset is available at [HuggingFace](https://huggingface.co/grenlayk/gpt2-medium-socialiqa).
 
-For domain adaptation on CoLA dataset and data generarion run this script:
+For domain adaptation on CoLA dataset and data generation run this script:
 ```shell script
 $ scripts/tune_cola.sh 1500
 ```
