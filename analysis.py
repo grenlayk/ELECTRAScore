@@ -26,7 +26,9 @@ class SUMStat:
         self,
         human_metric='fluency',
         auto_metrics=None,
-        table=None
+        table=None,
+        binary_casting=False,
+        cast_border=None,
     ):
         """ Evaluate summaries.
         Conduct summary-level correlations w.r.t each document. """
@@ -38,33 +40,46 @@ class SUMStat:
         metric_with_corr = []
         for metric in auto_metrics:
             correlations = []
-            for doc_id in self.data:
-                target_scores = []
-                prediction_scores = []
+            target_scores = []
+            prediction_scores = []
 
+            for doc_id in self.data:
                 sys_summs = self.data[doc_id]['sys_summs']
                 for sys_name in sys_summs:
                     prediction_scores.append(
                         sys_summs[sys_name]['scores'][metric])
                     target_scores.append(
                         sys_summs[sys_name]['scores'][human_metric])
-                if (len(set(prediction_scores)) == 1 or
-                        len(set(target_scores)) == 1):
-                    continue
-                correlations.append([
-                    spearmanr(target_scores, prediction_scores)[0],
-                    kendalltau(target_scores, prediction_scores)[0]
-                ])
+
+            if binary_casting:
+                border = 4.0
+                if cast_border == 'mean':
+                    border = np.mean(target_scores)
+                elif cast_border == 'median':
+                    border = np.median(target_scores)
+                target_scores = [0. if score < border else 1. for score in target_scores]
+
+            if (len(set(prediction_scores)) == 1 or
+                    len(set(target_scores)) == 1):
+                continue
+
+            correlations.append([
+                spearmanr(target_scores, prediction_scores)[0],
+                kendalltau(target_scores, prediction_scores)[0]
+            ])
+            # print(correlations[-1])
             corr_mat = np.array(correlations)
             spearman, ktau = np.mean(corr_mat[:, 0]), np.mean(corr_mat[:, 1])
             metric_with_corr.append([metric, spearman, ktau])
         sorted_metric_with_corr = sorted(
             metric_with_corr, key=lambda x: x[1], reverse=True)
         if table is not None:
-            file = open(table, 'w')
+            file = open(table, 'w') 
             for each in sorted_metric_with_corr:
                 print(f'{each[0]}\t{each[1]}\t{each[2]}', file=file)
             file.flush()
+        if binary_casting:
+            print(' < ', border, '')
         print(tabulate(
             sorted_metric_with_corr, headers=headers, tablefmt='simple'))
 

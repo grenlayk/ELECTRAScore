@@ -6,6 +6,7 @@ from analysis import SUMStat
 def main(dataset, input_file):
     if dataset == 'Newsroom' or dataset == 'SummEval':
         summ_stat = SUMStat(f'data/{dataset}/{input_file}')
+        print("Evaluation of ", dataset, " dataset:")
         summ_stat.evaluate_summary('fluency')
     else:
         print('You used wrong dataset. Please choose Newsroom or SummEval.')
