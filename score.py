@@ -63,7 +63,7 @@ class Scorer:
     def save_data(self, path):
         save_pickle(self.data, path)
 
-    def score(self, metrics):
+    def score(self, metrics, model=None, tokenizer=None):
         """ metrics: list of metrics """
         for metric_name in metrics:
             if metric_name == 'bert_score':
@@ -112,8 +112,9 @@ class Scorer:
 
             elif (metric_name == 'electra_score' or
                   metric_name == 'electra_score_e' or
-                  metric_name == 'electra_score_ecl'):
-                """ Vanilla ELECTRAScore """
+                  metric_name == 'electra_score_ecl' or
+                  metric_name[:13] == 'electra_score'):
+                """ ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
 
                 if metric_name == 'electra_score':
@@ -124,9 +125,15 @@ class Scorer:
                     electra_scorer = ELECTRAScorer(
                         checkpoint="grenlayk/electra-large-cola-extended",
                         device=self.device)
-                else:
+                elif metric_name == 'electra_score_ecl':
                     electra_scorer = ELECTRAScorer(
                         checkpoint="grenlayk/electra-large-cola-extended-chatgpt",
+                        device=self.device)
+                else:
+                    electra_scorer = ELECTRAScorer(
+                        checkpoint=None,
+                        model=model,
+                        tokenizer=tokenizer,
                         device=self.device)
 
                 print(f'ELECTRAScorer for {metric_name} setup finished. \

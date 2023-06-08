@@ -52,7 +52,7 @@ class SUMStat:
                         sys_summs[sys_name]['scores'][human_metric])
 
             if binary_casting:
-                border = 4.0
+                border = cast_border
                 if cast_border == 'mean':
                     border = np.mean(target_scores)
                 elif cast_border == 'median':
@@ -79,7 +79,7 @@ class SUMStat:
                 print(f'{each[0]}\t{each[1]}\t{each[2]}', file=file)
             file.flush()
         if binary_casting:
-            print(' < ', border, '')
+            print(' < ', border)
         print(tabulate(
             sorted_metric_with_corr, headers=headers, tablefmt='simple'))
 

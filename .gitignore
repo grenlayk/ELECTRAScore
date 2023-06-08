@@ -162,6 +162,7 @@ cython_debug/
 # added manually
 models/
 electra_tuning/data
+wandb/
 
 .DS_Store
 .vscode/

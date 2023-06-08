@@ -15,14 +15,22 @@ class ELECTRAScorer:
         self,
         device='cuda:0',
         max_length=1024,
-        checkpoint="grenlayk/electra-large-cola"
+        checkpoint="grenlayk/electra-large-cola",
+        model=None,
+        tokenizer=None,
     ):
         # Set up model
         self.device = device
         self.max_length = max_length
-        self.tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-        self.model = AutoModelForSequenceClassification.from_pretrained(
-            checkpoint)
+        if checkpoint is None:
+            assert model is not None
+            assert tokenizer is not None
+            self.model = model
+            self.tokenizer = tokenizer
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+            self.model = AutoModelForSequenceClassification.from_pretrained(
+                checkpoint)
         self.model.eval()
         self.model.to(device)
 
