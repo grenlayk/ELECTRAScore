@@ -189,8 +189,8 @@ def filter_train_and_evaluate(
     )
 
     print('Starting training.')
-    # trainer_e.train()
-    # trainer_ecl.train()
+    trainer_e.train()
+    trainer_ecl.train()
     print('Finished training.')
 
     ### Here predictions for summeval and newsroom
