@@ -48,8 +48,9 @@ def merge_data(cola, data_augm, num_pos_to_leave):
     return concatenate_datasets([data_augm, cola])
 
 
-def score_dataset(tokenizer, models, metrics_names,
-                  name='SummEval', device='cuda:0', output='summeval_scores.pkl'):
+def score_dataset_with_model(
+        tokenizer, models, metrics_names,
+        name='SummEval', device='cuda:0', output='summeval_scores.pkl'):
     print(f'Starting scoring for {name}.')
     scorer = Scorer(f'data/{name}/data.pkl', device, True)
     for model, metric in zip(models, metrics_names):
@@ -60,6 +61,7 @@ def score_dataset(tokenizer, models, metrics_names,
 
 
 def evaluate_all(summeval_output, newsroom_output):
+    # Evaluation for SummEval, Newsroom, and Newsroom>=4
     print(f"Evaluation of SummEval dataset (data/SummEval/{summeval_output}):")
     summ_stat_summeval = SUMStat(f'data/SummEval/{summeval_output}')
     summ_stat_summeval.evaluate_summary('fluency')
@@ -67,9 +69,9 @@ def evaluate_all(summeval_output, newsroom_output):
     summ_stat_newsroom = SUMStat(f'data/Newsroom/{newsroom_output}')
     summ_stat_newsroom.evaluate_summary('fluency')
     print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
-    print('Binary casting enabeled with border < 4 + eps')
+    print('Binary casting enabled with (< 4) --> 0, (>=4) --> 1')
     summ_stat_newsroom.evaluate_summary(
-        'fluency', binary_casting=True, cast_border=4.0+1e-3)
+        'fluency', binary_casting=True, cast_border=4.0)
 
 
 def filter_train_and_evaluate(
@@ -218,13 +220,15 @@ def filter_train_and_evaluate(
     print('Finished training.')
 
     ### Here predictions for summeval and newsroom
-    score_dataset(tokenizer, models=[model_e, model_ecl],
-                  metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
-                  name='SummEval', device=device, output=summeval_output)
+    score_dataset_with_model(
+        tokenizer, models=[model_e, model_ecl],
+        metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
+        name='SummEval', device=device, output=summeval_output)
 
-    score_dataset(tokenizer, models=[model_e, model_ecl],
-                  metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
-                  name='Newsroom', device=device, output=newsroom_output)
+    score_dataset_with_model(
+        tokenizer, models=[model_e, model_ecl],
+        metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
+        name='Newsroom', device=device, output=newsroom_output)
 
     ### Here evaluation for summeval, newsroom, and newsroom>=4
     evaluate_all(summeval_output, newsroom_output)
