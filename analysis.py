@@ -44,12 +44,20 @@ class SUMStat:
             prediction_scores = []
 
             for doc_id in self.data:
+                if not binary_casting:
+                    target_scores = []
+                    prediction_scores = []
                 sys_summs = self.data[doc_id]['sys_summs']
                 for sys_name in sys_summs:
                     prediction_scores.append(
                         sys_summs[sys_name]['scores'][metric])
                     target_scores.append(
                         sys_summs[sys_name]['scores'][human_metric])
+                if not binary_casting:
+                    if len(set(prediction_scores)) == 1 or len(set(target_scores)) == 1:
+                        continue
+                    correlations.append([spearmanr(target_scores, prediction_scores)[0],
+                                        kendalltau(target_scores, prediction_scores)[0]])
 
             if binary_casting:
                 border = cast_border
@@ -59,15 +67,15 @@ class SUMStat:
                     border = np.median(target_scores)
                 target_scores = [0. if score < border else 1. for score in target_scores]
 
-            if (len(set(prediction_scores)) == 1 or
-                    len(set(target_scores)) == 1):
-                continue
+                if (len(set(prediction_scores)) == 1 or
+                        len(set(target_scores)) == 1):
+                    continue
 
-            correlations.append([
-                spearmanr(target_scores, prediction_scores)[0],
-                kendalltau(target_scores, prediction_scores)[0]
-            ])
-            # print(correlations[-1])
+                correlations.append([
+                    spearmanr(target_scores, prediction_scores)[0],
+                    kendalltau(target_scores, prediction_scores)[0]
+                ])
+
             corr_mat = np.array(correlations)
             spearman, ktau = np.mean(corr_mat[:, 0]), np.mean(corr_mat[:, 1])
             metric_with_corr.append([metric, spearman, ktau])

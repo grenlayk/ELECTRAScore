@@ -48,6 +48,30 @@ def merge_data(cola, data_augm, num_pos_to_leave):
     return concatenate_datasets([data_augm, cola])
 
 
+def score_dataset(tokenizer, models, metrics_names,
+                  name='SummEval', device='cuda:0', output='summeval_scores.pkl'):
+    print(f'Starting scoring for {name}.')
+    scorer = Scorer(f'data/{name}/data.pkl', device, True)
+    for model, metric in zip(models, metrics_names):
+        scorer.score([metric], model, tokenizer)
+    scorer.save_data(f'data/{name}/{output}')
+    print(f'Finished scoring for {name}. \
+          Saved results to data/{name}/{output}')
+
+
+def evaluate_all(summeval_output, newsroom_output):
+    print(f"Evaluation of SummEval dataset (data/SummEval/{summeval_output}):")
+    summ_stat_summeval = SUMStat(f'data/SummEval/{summeval_output}')
+    summ_stat_summeval.evaluate_summary('fluency')
+    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output}):")
+    summ_stat_newsroom = SUMStat(f'data/Newsroom/{newsroom_output}')
+    summ_stat_newsroom.evaluate_summary('fluency')
+    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
+    print('Binary casting enabeled with border < 4 + eps')
+    summ_stat_newsroom.evaluate_summary(
+        'fluency', binary_casting=True, cast_border=4.0+1e-3)
+
+
 def filter_train_and_evaluate(
     correcting_func,
     augmentations: Dataset,
@@ -194,30 +218,13 @@ def filter_train_and_evaluate(
     print('Finished training.')
 
     ### Here predictions for summeval and newsroom
-    print('Starting scoring for SummEval.')
-    summeval_scorer = Scorer('data/SummEval/data.pkl', device, True)
-    summeval_scorer.score(['electra_score_e_new'], model_e, tokenizer)
-    summeval_scorer.score(['electra_score_ecl_new'], model_ecl, tokenizer)
-    summeval_scorer.save_data(f'data/SummEval/{summeval_output}')
-    print('Finished scoring for SummEval. \
-          Saved results to data/SummEval/{summeval_output}')
+    score_dataset(tokenizer, models=[model_e, model_ecl],
+                  metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
+                  name='SummEval', device=device, output=summeval_output)
 
-    print('Starting scoring for Newsroom.')
-    newsroom_scorer = Scorer('data/Newsroom/data.pkl', device, False)
-    newsroom_scorer.score(['electra_score_e_new'], model_e, tokenizer)
-    newsroom_scorer.score(['electra_score_ecl_new'], model_ecl, tokenizer)
-    newsroom_scorer.save_data(f'data/Newsroom/{newsroom_output}')
-    print(f'Finished scoring for Newsroom. \
-          Saved results to data/Newsroom/{newsroom_output}')
+    score_dataset(tokenizer, models=[model_e, model_ecl],
+                  metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
+                  name='Newsroom', device=device, output=newsroom_output)
 
     ### Here evaluation for summeval, newsroom, and newsroom>=4
-    print(f"Evaluation of SummEval dataset (data/SummEval/{summeval_output}):")
-    summ_stat_summeval = SUMStat(f'data/SummEval/{summeval_output}')
-    summ_stat_summeval.evaluate_summary('fluency')
-    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output}):")
-    summ_stat_newsroom = SUMStat(f'data/Newsroom/{newsroom_output}')
-    summ_stat_newsroom.evaluate_summary('fluency')
-    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
-    print('Binary casting enabeled with border < 4 + eps')
-    summ_stat_newsroom.evaluate_summary(
-        'fluency', binary_casting=True, cast_border=4.0+1e-3)
+    evaluate_all(summeval_output, newsroom_output)
