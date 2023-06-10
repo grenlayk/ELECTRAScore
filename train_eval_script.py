@@ -71,7 +71,7 @@ def evaluate_all(summeval_output, newsroom_output):
     print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
     print('Binary casting enabled with (< 4) --> 0, (>=4) --> 1')
     summ_stat_newsroom.evaluate_summary(
-        'fluency', binary_casting=True, cast_border=4.0)
+        'fluency', dataset_level=True, binary_casting=True, cast_border=4.0)
 
 
 def filter_train_and_evaluate(

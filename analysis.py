@@ -27,6 +27,7 @@ class SUMStat:
         human_metric='fluency',
         auto_metrics=None,
         table=None,
+        dataset_level=False,
         binary_casting=False,
         cast_border=None,
     ):
@@ -44,7 +45,7 @@ class SUMStat:
             prediction_scores = []
 
             for doc_id in self.data:
-                if not binary_casting:
+                if not dataset_level:
                     target_scores = []
                     prediction_scores = []
                 sys_summs = self.data[doc_id]['sys_summs']
@@ -53,7 +54,7 @@ class SUMStat:
                         sys_summs[sys_name]['scores'][metric])
                     target_scores.append(
                         sys_summs[sys_name]['scores'][human_metric])
-                if not binary_casting:
+                if not dataset_level:
                     if len(set(prediction_scores)) == 1 or len(set(target_scores)) == 1:
                         continue
                     correlations.append([spearmanr(target_scores, prediction_scores)[0],
@@ -67,6 +68,7 @@ class SUMStat:
                     border = np.median(target_scores)
                 target_scores = [0. if score < border else 1. for score in target_scores]
 
+            if dataset_level:
                 if (len(set(prediction_scores)) == 1 or
                         len(set(target_scores)) == 1):
                     continue
@@ -106,3 +108,5 @@ class SUMStat:
             return ['coherence', 'consistency', 'fluency', 'relevance']
         if 'Newsroom' in self.path:
             return ['coherence', 'fluency', 'informativeness', 'relevance']
+        if 'JFLEG' in self.path:
+            return ['fluency']
