@@ -102,8 +102,8 @@ class Scorer:
                     for doc_id in self.data:
                         self.data[doc_id]['sys_summs'][sys_name][
                             'scores'].update({
-                                # 'bert_score_p': P[counter],
-                                # 'bert_score_r': R[counter],
+                                'bert_score_p': P[counter],
+                                'bert_score_r': R[counter],
                                 'bert_score_f': F[counter]
                             })
                         counter += 1
@@ -222,10 +222,10 @@ class Scorer:
                         self.data[doc_id]['sys_summs'][sys_name][
                             'scores'].update({
                                 f'{metric_name}_src_hypo': src_hypo[counter],
-                                # f'{metric_name}_hypo_ref': hypo_ref[counter],
-                                # f'{metric_name}_ref_hypo': ref_hypo[counter],
-                                # f'{metric_name}_avg_f': avg_f[counter],
-                                # f'{metric_name}_harm_f': harm_f[counter]
+                                f'{metric_name}_hypo_ref': hypo_ref[counter],
+                                f'{metric_name}_ref_hypo': ref_hypo[counter],
+                                f'{metric_name}_avg_f': avg_f[counter],
+                                f'{metric_name}_harm_f': harm_f[counter]
                             })
                         counter += 1
                 print(f'Finished calculating BARTScore, \
