@@ -163,6 +163,7 @@ cython_debug/
 models/
 electra_tuning/data
 wandb/
+data/JFLEG/jfleg
 
 .DS_Store
 .vscode/
