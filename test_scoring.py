@@ -14,14 +14,14 @@ newsroom_output = 'newsroom_scores.pkl'
 summeval_output = 'summeval_scores.pkl'
 augmentations = datasets.load_dataset("csv", data_files="data/tmp/generated_data.csv")
 
-# filter_train_and_evaluate(correcting_func, augmentations['train'], num_pos_to_leave="equal", device='mps:0', epochs=1)
+filter_train_and_evaluate(correcting_func, augmentations['train'], num_pos_to_leave="equal", device='mps:0', epochs=1)
 
-# model = 
-# tokenizer = 
+# model =
+# tokenizer =
 # score_dataset_with_model(tokenizer, models=[model],
 #         metrics_names=['electra_score_akim'],
 #         name='Newsroom', device=device, output=newsroom_output)
 # score_dataset_with_model(tokenizer, models=[model],
 #         metrics_names=['electra_score_akim'],
 #         name='SummEval', device=device, output=newsroom_output)
-evaluate_all(summeval_output=summeval_output, newsroom_output=newsroom_output)
+# evaluate_all(summeval_output=summeval_output, newsroom_output=newsroom_output)

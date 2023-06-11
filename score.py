@@ -175,6 +175,9 @@ class Scorer:
                     bart_scorer = BARTScorer(
                         device=self.device,
                         checkpoint='facebook/bart-large-cnn')
+                elif 'para' in metric_name:
+                    bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/bart-large-cnn')
+                    bart_scorer.load()
                 else:
                     bart_scorer = BARTScorer(
                         device=self.device, checkpoint='facebook/bart-large')
