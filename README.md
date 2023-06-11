@@ -16,7 +16,7 @@ Alternatively, run this code:
 # running from ELECTRAScore root folder
 mkdir models
 gdown 1_7JfF7KOInb7ZrxKHIigTMR4ChVET01m 
-mv bart_score.pth models/bart_score.pth # downloaded file should be in models folder
+mv bart_score.pth models/bart.pth # downloaded file should be in models folder
 ```
 
 ## Data
