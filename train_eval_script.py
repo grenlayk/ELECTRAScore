@@ -50,9 +50,9 @@ def merge_data(cola, data_augm, num_pos_to_leave):
 
 def score_dataset_with_model(
         tokenizer, models, metrics_names,
-        name='SummEval', device='cuda:0', output='summeval_scores.pkl'):
+        name='SummEval', device='cuda:0', output='summeval_scores.pkl', multi_ref=True):
     print(f'Starting scoring for {name}.')
-    scorer = Scorer(f'data/{name}/data.pkl', device, True)
+    scorer = Scorer(f'data/{name}/data.pkl', device, multi_ref)
     for model, metric in zip(models, metrics_names):
         scorer.score([metric], model, tokenizer)
     scorer.save_data(f'data/{name}/{output}')
@@ -223,12 +223,12 @@ def filter_train_and_evaluate(
     score_dataset_with_model(
         tokenizer, models=[model_e, model_ecl],
         metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
-        name='SummEval', device=device, output=summeval_output)
+        name='SummEval', device=device, output=summeval_output, multi_ref=True)
 
     score_dataset_with_model(
         tokenizer, models=[model_e, model_ecl],
         metrics_names=['electra_score_e_new', 'electra_score_ecl_new'],
-        name='Newsroom', device=device, output=newsroom_output)
+        name='Newsroom', device=device, output=newsroom_output, multi_ref=False)
 
     ### Here evaluation for summeval, newsroom, and newsroom>=4
     evaluate_all(summeval_output, newsroom_output)
