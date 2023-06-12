@@ -10,14 +10,15 @@ def main(dataset, input_file):
         dataset_level = True if dataset == 'JFLEG' else False
         summ_stat.evaluate_summary('fluency', dataset_level=dataset_level)
     else:
-        print('You used wrong dataset. Please choose Newsroom or SummEval.')
+        print('You used wrong dataset. \
+              Please choose Newsroom, SummEval or JFLEG.')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Scorer parameters')
     parser.add_argument(
         '--dataset', type=str, required=True,
-        help='The dataset to calculate statistics. Newsroom or SummEval'
+        help='The dataset to calculate statistics. Newsroom, SummEval or JFLEG'
     )
     parser.add_argument(
         '--input_file', type=str, required=False,

@@ -50,6 +50,8 @@ class SUMStat:
                     prediction_scores = []
                 sys_summs = self.data[doc_id]['sys_summs']
                 for sys_name in sys_summs:
+                    if sys_summs[sys_name]['scores'][human_metric] is None:
+                        continue
                     prediction_scores.append(
                         sys_summs[sys_name]['scores'][metric])
                     target_scores.append(
@@ -57,8 +59,9 @@ class SUMStat:
                 if not dataset_level:
                     if len(set(prediction_scores)) == 1 or len(set(target_scores)) == 1:
                         continue
-                    correlations.append([spearmanr(target_scores, prediction_scores)[0],
-                                        kendalltau(target_scores, prediction_scores)[0]])
+                    correlations.append([
+                        spearmanr(target_scores, prediction_scores)[0],
+                        kendalltau(target_scores, prediction_scores)[0]])
 
             if binary_casting:
                 border = cast_border
@@ -66,7 +69,8 @@ class SUMStat:
                     border = np.mean(target_scores)
                 elif cast_border == 'median':
                     border = np.median(target_scores)
-                target_scores = [0. if score < border else 1. for score in target_scores]
+                target_scores = [
+                    0. if score < border else 1. for score in target_scores]
 
             if dataset_level:
                 if (len(set(prediction_scores)) == 1 or
