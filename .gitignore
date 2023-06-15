@@ -164,6 +164,7 @@ models/
 electra_tuning/data
 wandb/
 data/JFLEG/jfleg
+data/CONLL/conll14st-test-data
 
 .DS_Store
 .vscode/

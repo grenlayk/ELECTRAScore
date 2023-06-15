@@ -4,23 +4,26 @@ from analysis import SUMStat
 
 
 def main(dataset, input_file, dataset_level):
-    if dataset in ['Newsroom', 'SummEval', 'JFLEG']:
+    if dataset in ['Newsroom', 'SummEval', 'JFLEG', 'CONLL']:
         summ_stat = SUMStat(f'data/{dataset}/{input_file}')
         print("Evaluation of ", dataset, " dataset:")
         if dataset == 'JFLEG':
             summ_stat.evaluate('fluency', dataset_level=dataset_level)
+        elif dataset == 'CONLL':
+            summ_stat.evaluate('fluency', dataset_level=True)
         else:
             summ_stat.evaluate_summary('fluency', dataset_level=False)
     else:
         print('You used wrong dataset. \
-              Please choose Newsroom, SummEval or JFLEG.')
+              Please choose Newsroom, SummEval, JFLEG or CONLL.')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Scorer parameters')
     parser.add_argument(
         '--dataset', type=str, required=True,
-        help='The dataset to calculate statistics. Newsroom, SummEval or JFLEG'
+        help='The dataset to calculate statistics. \
+            Newsroom, SummEval, JFLEG or CONLL.'
     )
     parser.add_argument(
         '--input_file', type=str, required=False,

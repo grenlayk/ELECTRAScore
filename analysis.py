@@ -19,6 +19,7 @@ def custom_score(target_scores, prediction_scores):
         return 1
     return 0
 
+
 class SUMStat:
     """ A class used to get stats of SUM trained data """
 
@@ -60,7 +61,8 @@ class SUMStat:
                 if not dataset_level and int(doc_id[:doc_id.find('_')]) > block_id:
                     metrics.append([
                         roc_auc_score(target_scores, prediction_scores),
-                        calculate_precision_recall_auc(target_scores, prediction_scores),
+                        calculate_precision_recall_auc(
+                            target_scores, prediction_scores),
                         custom_score(target_scores, prediction_scores)])
                     target_scores = []
                     prediction_scores = []
@@ -75,12 +77,14 @@ class SUMStat:
             if dataset_level:
                 metrics.append([
                     roc_auc_score(target_scores, prediction_scores),
-                    calculate_precision_recall_auc(target_scores, prediction_scores),
+                    calculate_precision_recall_auc(
+                        target_scores, prediction_scores),
                 ])
             else:
                 metrics.append([
                     roc_auc_score(target_scores, prediction_scores),
-                    calculate_precision_recall_auc(target_scores, prediction_scores),
+                    calculate_precision_recall_auc(
+                        target_scores, prediction_scores),
                     custom_score(target_scores, prediction_scores)])
 
             metrics_mat = np.array(metrics)
@@ -122,7 +126,7 @@ class SUMStat:
             correlations = []
             target_scores = []
             prediction_scores = []
-            for doc_id in self.data:                  
+            for doc_id in self.data:
                 sys_summs = self.data[doc_id]['sys_summs']
                 for sys_name in sys_summs:
                     prediction_scores.append(
@@ -163,7 +167,7 @@ class SUMStat:
         sorted_metric_with_corr = sorted(
             metric_with_corr, key=lambda x: x[1], reverse=True)
         if table is not None:
-            file = open(table, 'w') 
+            file = open(table, 'w')
             for each in sorted_metric_with_corr:
                 print(f'{each[0]}\t{each[1]}\t{each[2]}', file=file)
             file.flush()
@@ -188,4 +192,6 @@ class SUMStat:
         if 'Newsroom' in self.path:
             return ['coherence', 'fluency', 'informativeness', 'relevance']
         if 'JFLEG' in self.path:
+            return ['fluency']
+        if 'CONLL' in self.path:
             return ['fluency']
