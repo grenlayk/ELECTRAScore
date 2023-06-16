@@ -44,7 +44,7 @@ The (chatgpt_scoring.ipynb)[chatgpt_scoring.ipynb] notebook contains following s
 
 Here we provide links to files which we used and created:
 - Raw generated samples ([link](https://drive.google.com/file/d/1mTobfflscj6xKVGmlmEf1qJAMUNSsXbT/view?usp=share_link))
-- Parsed generated samples ([link](https://drive.google.com/file/d/1mTobfflscj6xKVGmlmEf1qJAMUNSsXbT/view?usp=share_link))
+- Parsed generated samples ([link](https://drive.google.com/file/d/1iL5aYEk01vsv6GLbV_5Cs97Lzys1yhYb/view?usp=sharing))
 - Parsed generated samples with ChatGPT labels ([link](https://drive.google.com/file/d/1txYNeceA8FMHqeqFiDAI4WwGfJ1dadhe/view?usp=share_link))
 - Generated part of CoLA-E dataset ([link](https://drive.google.com/file/d/1zjlzKbHU7pkuEaVqGkES5DosB52k6Upk/view?usp=share_link))
 - Generated part of CoLA-ECL dataset ([link](https://drive.google.com/file/d/1edCFZQcqoAIQEHhdDZqdZUt5Id4itbX1/view?usp=share_link))
