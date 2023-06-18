@@ -1,601 +1,801 @@
 id,text
-4537,"question : is this text grammatically correct?
+1282,"question : Is this text grammatically correct?
+answer : no
+context : The excellent whisky which I went to the store and have bought was very costly.
+"
+6260,"question : Is this text grammatically correct?
+answer : no
+context : Louis begged Kate that she leave her job.
+"
+1272,"question : Is this text grammatically correct?
+answer : no
+context : Whose tax did the nurse polish her trombone and the plumber compute?
+"
+7510,"question : Is this text grammatically correct?
+answer : no
+context : John hurt John with John's umbrella when John tried to open it.
+"
+5336,"question : Is this text grammatically correct?
+answer : yes
+context : Jack eats caviar more than he eats mush.
+"
+6885,"question : Is this text grammatically correct?
+answer : yes
+context : Near Strasbourg my brother lives.
+"
+1844,"question : Is this text grammatically correct?
+answer : no
+context : I like beer, me.
+"
+2127,"question : Is this text grammatically correct?
+answer : yes
+context : It is unreadable, guaranteed to give a headache to anyone who looks hard at the small print.
+"
+2472,"question : Is this text grammatically correct?
+answer : yes
+context : Sarah sang a song.
+"
+1297,"question : Is this text grammatically correct?
+answer : no
+context : Which quonset hut does the boy work in a skyscraper and the girl in?
+"
+7533,"question : Is this text grammatically correct?
+answer : no
+context : Mary noticed John's excessive appreciation of herself.
+"
+6944,"question : Is this text grammatically correct?
+answer : yes
+context : The beaver built a dam.
+"
+788,"question : Is this text grammatically correct?
+answer : yes
+context : To go abroad would be nice.
+"
+7220,"question : Is this text grammatically correct?
+answer : no
+context : It is arrive tomorrow that Mary will.
+"
+6750,"question : Is this text grammatically correct?
+answer : yes
+context : Write a letter to Anne Elliott.
+"
+1196,"question : Is this text grammatically correct?
+answer : yes
+context : That the defendant had been rude was stoutly denied by his lawyer.
+"
+4954,"question : Is this text grammatically correct?
+answer : no
+context : Which celebrity did he mention the fact that he had run into?
+"
+3288,"question : Is this text grammatically correct?
+answer : yes
+context : There exists a solution to this problem.
+"
+300,"question : Is this text grammatically correct?
+answer : yes
+context : They failed to tell me which problem the sooner I solve, the quicker the folks up at corporate headquarters.
+"
+4566,"question : Is this text grammatically correct?
+answer : no
+context : The roof is leaked.
+"
+3356,"question : Is this text grammatically correct?
+answer : yes
+context : The accident happened.
+"
+3514,"question : Is this text grammatically correct?
+answer : no
+context : He washed myself.
+"
+6840,"question : Is this text grammatically correct?
+answer : no
+context : I forwarded Winifred the letter.
+"
+4732,"question : Is this text grammatically correct?
+answer : yes
+context : He got hit in the face with the tip of a surfboard.
+"
+3574,"question : Is this text grammatically correct?
+answer : yes
+context : He did not leave.
+"
+5619,"question : Is this text grammatically correct?
+answer : no
+context : Himself sang to George.
+"
+1609,"question : Is this text grammatically correct?
+answer : yes
+context : He said he would leave and now he's done it.
+"
+5344,"question : Is this text grammatically correct?
+answer : yes
+context : Mary is taller than six feet.
+"
+83,"question : Is this text grammatically correct?
+answer : no
+context : The elevator rumbled itself to the ground.
+"
+4997,"question : Is this text grammatically correct?
+answer : yes
+context : John made it clear that he would finish it on time.
+"
+30,"question : Is this text grammatically correct?
+answer : yes
+context : John danced waltzes across the room.
+"
+7306,"question : Is this text grammatically correct?
+answer : yes
+context : It was in the barn or it took place in the barn.
+"
+7935,"question : Is this text grammatically correct?
+answer : yes
+context : Humans love to eat the old pigs.
+"
+4489,"question : Is this text grammatically correct?
+answer : yes
+context : Duty made them not miss the weekly meetings.
+"
+2946,"question : Is this text grammatically correct?
+answer : no
+context : David constructed me a house.
+"
+7554,"question : Is this text grammatically correct?
+answer : no
+context : I heard John's criticism of myself.
+"
+4433,"question : Is this text grammatically correct?
+answer : yes
+context : John is happy about the outcome.
+"
+324,"question : Is this text grammatically correct?
+answer : no
+context : I aren't going.
+"
+2475,"question : Is this text grammatically correct?
+answer : yes
+context : Sarah sang a hymn.
+"
+6917,"question : Is this text grammatically correct?
+answer : yes
+context : The intense cold killed the climbers.
+"
+1325,"question : Is this text grammatically correct?
+answer : no
+context : I saw you there and who ate what?
+"
+3560,"question : Is this text grammatically correct?
+answer : no
+context : The his jobs are in jeopardy.
+"
+2412,"question : Is this text grammatically correct?
+answer : yes
+context : The contractor will build a house for $ 100,000.
+"
+4562,"question : Is this text grammatically correct?
+answer : no
+context : Tagalog is speak in the Philippines.
+"
+7402,"question : Is this text grammatically correct?
+answer : yes
+context : They specialized.
+"
+5810,"question : Is this text grammatically correct?
+answer : yes
+context : That automobile factories abound in Michigan worries me greatly.
+"
+1952,"question : Is this text grammatically correct?
+answer : yes
+context : John met Mary in Vienna.
+"
+1968,"question : Is this text grammatically correct?
+answer : yes
+context : I deny that it is certain that Bob has any money.
+"
+2530,"question : Is this text grammatically correct?
+answer : no
+context : Jennifer craned her arm.
+"
+5355,"question : Is this text grammatically correct?
+answer : no
+context : John is as much intelligent as Mary.
+"
+7257,"question : Is this text grammatically correct?
+answer : no
+context : I prefer for the girl to will win.
+"
+7892,"question : Is this text grammatically correct?
+answer : no
+context : Bill's reading Shakespeare and Maureen's singing Schubert satisfies me
+"
+1330,"question : Is this text grammatically correct?
+answer : yes
+context : Sasha is gobbling down dumplings faster than I can reheat them.
+"
+4835,"question : Is this text grammatically correct?
+answer : yes
+context : When did he say that he was fired?
+"
+4222,"question : Is this text grammatically correct?
+answer : yes
+context : Both of the workers will wear carnations.
+"
+5395,"question : Is this text grammatically correct?
+answer : yes
+context : He's enough of a fool to try it.
+"
+249,"question : Is this text grammatically correct?
+answer : no
+context : He gets angry if John has to wait.
+"
+5962,"question : Is this text grammatically correct?
+answer : yes
+context : Heidi thinks that Andy has eaten salmon flavored candy bars.
+"
+3277,"question : Is this text grammatically correct?
+answer : no
+context : In price soared oil.
+"
+1209,"question : Is this text grammatically correct?
+answer : yes
+context : I believed the claim that Otto was wearing this hat.
+"
+7093,"question : Is this text grammatically correct?
+answer : no
+context : John drinks coffee at 11, and Mary, tea at 10:30.
+"
+4767,"question : Is this text grammatically correct?
+answer : yes
+context : These qualities recommended him to Oliver.
+"
+2350,"question : Is this text grammatically correct?
+answer : no
+context : I stalked for game in the woods.
+"
+6541,"question : Is this text grammatically correct?
+answer : no
+context : Who did you wonder saw Kim?
+"
+3016,"question : Is this text grammatically correct?
+answer : yes
+context : They praised them as volunteers.
+"
+1212,"question : Is this text grammatically correct?
+answer : yes
+context : The hat which I believed that Otto was wearing is red.
+"
+3196,"question : Is this text grammatically correct?
+answer : yes
+context : The witch poisoned Snow White.
+"
+7729,"question : Is this text grammatically correct?
+answer : no
+context : The hospital was donated the book to.
+"
+4289,"question : Is this text grammatically correct?
+answer : yes
+context : The cat seems to be out of the bag.
+"
+1528,"question : Is this text grammatically correct?
+answer : no
+context : I talked to Winston about Winston.
+"
+5559,"question : Is this text grammatically correct?
+answer : yes
+context : John is taller than Pete is.
+"
+7340,"question : Is this text grammatically correct?
+answer : yes
+context : I liked Mary.
+"
+8005,"question : Is this text grammatically correct?
+answer : yes
+context : That Jason arrived infuriated Medea.
+"
+6484,"question : Is this text grammatically correct?
+answer : yes
+context : At 4 p.m. I saw John lecturing to everyone who was near him.
+"
+1989,"question : Is this text grammatically correct?
+answer : yes
+context : That the sun was out is obvious.
+"
+6465,"question : Is this text grammatically correct?
+answer : no
+context : There is any book by Chomsky in this library.
+"
+7516,"question : Is this text grammatically correct?
+answer : yes
+context : He should decide soon.
+"
+8544,"question : Is this text grammatically correct?
+answer : yes
+context : Gilgamesh hasn't kissed Ishtar.
+"
+5353,"question : Is this text grammatically correct?
+answer : yes
+context : You and I are as alike as a horse and a cow.
+"
+6182,"question : Is this text grammatically correct?
+answer : yes
+context : What did Bill claim that he read?
+"
+4458,"question : Is this text grammatically correct?
+answer : no
+context : They will do come.
+"
+7791,"question : Is this text grammatically correct?
+answer : no
+context : What I arranged for Jenny was to be present.
+"
+3762,"question : Is this text grammatically correct?
+answer : yes
+context : She was sent a review copy of the book by the publisher.
+"
+1799,"question : Is this text grammatically correct?
+answer : yes
+context : The socks are ready for you to put on.
+"
+2333,"question : Is this text grammatically correct?
+answer : no
+context : The jeweller copied the ring with the name.
+"
+4343,"question : Is this text grammatically correct?
+answer : no
+context : He believed there to be likely that he won the game.
+"
+329,"question : Is this text grammatically correct?
+answer : yes
+context : He hasn't often paid taxes, has he?
+"
+7668,"question : Is this text grammatically correct?
+answer : no
+context : John convinced Bill for Mary to sleep.
+"
+6548,"question : Is this text grammatically correct?
+answer : yes
+context : He was talkative and a bully.
+"
+4472,"question : Is this text grammatically correct?
+answer : no
+context : The proposal did be endorsed by Clinton.
+"
+898,"question : Is this text grammatically correct?
+answer : no
+context : I visited every town in every country I had to.
+"
+7909,"question : Is this text grammatically correct?
+answer : no
+context : Aphrodite said he freed the animals and freed the animals he
+"
+3841,"question : Is this text grammatically correct?
+answer : yes
+context : She was the nicest teacher in the Senior School.
+"
+3032,"question : Is this text grammatically correct?
+answer : yes
+context : Brenda and Molly haggled.
+"
+4854,"question : Is this text grammatically correct?
+answer : no
+context : I wonder what city that Romans destroyed.
+"
+5941,"question : Is this text grammatically correct?
+answer : yes
+context : Louis was forgiven by Susan.
+"
+6060,"question : Is this text grammatically correct?
+answer : no
+context : If he is a rich man, he'd buy a diamond ring.
+"
+4663,"question : Is this text grammatically correct?
+answer : yes
+context : John kicked him.
+"
+3774,"question : Is this text grammatically correct?
+answer : no
+context : The best writer was considered Andrew.
+"
+5051,"question : Is this text grammatically correct?
+answer : no
+context : Surprised me that you came early.
+"
+2233,"question : Is this text grammatically correct?
+answer : no
+context : This key won't open.
+"
+3174,"question : Is this text grammatically correct?
+answer : no
+context : The horse groomed itself.
+"
+8047,"question : Is this text grammatically correct?
+answer : yes
+context : Why did you say that you were leaving?
+"
+941,"question : Is this text grammatically correct?
+answer : no
+context : I know which book Max read, and which book Oscar hasn't done so.
+"
+2478,"question : Is this text grammatically correct?
+answer : yes
+context : Kelly buttered the bread.
+"
+8349,"question : Is this text grammatically correct?
+answer : no
+context : I said this he left
+"
+7017,"question : Is this text grammatically correct?
+answer : no
+context : Chris will become talking to colleagues.
+"
+4887,"question : Is this text grammatically correct?
+answer : no
+context : the paper to finish by tomorrow is too long.
+"
+5004,"question : Is this text grammatically correct?
+answer : no
+context : To please John is eager.
+"
+1781,"question : Is this text grammatically correct?
+answer : yes
+context : Willy is taller than Bill by as much as everybody seems to expect me to admit to having publicly proclaimed that I believed.
+"
+6118,"question : Is this text grammatically correct?
+answer : no
+context : It is likely Patrick to leave.
+"
+4387,"question : Is this text grammatically correct?
+answer : no
+context : The house is been remodelling.
+"
+7561,"question : Is this text grammatically correct?
+answer : yes
+context : the girls likes them.
+"
+4918,"question : Is this text grammatically correct?
+answer : no
+context : the pencil with that he is writing broke.
+"
+711,"question : Is this text grammatically correct?
+answer : no
+context : Mary persuaded that he should rest Bill.
+"
+4976,"question : Is this text grammatically correct?
+answer : yes
+context : Experts all agree that dreams cause great anxiety and stress are called nightmares.
+"
+4075,"question : Is this text grammatically correct?
+answer : no
+context : How much money Gordon spent is true.
+"
+939,"question : Is this text grammatically correct?
+answer : yes
+context : China is a country that Joe wants to visit, and he will too, if he gets enough money.
+"
+3782,"question : Is this text grammatically correct?
+answer : yes
+context : They spoil their kids rotten.
+"
+8477,"question : Is this text grammatically correct?
+answer : no
+context : The bears sniffs
+"
+6322,"question : Is this text grammatically correct?
+answer : no
+context : Heidi believes Bill's description of herself.
+"
+1387,"question : Is this text grammatically correct?
+answer : no
+context : The place which I live at is the place where Route 150 crosses the Hudson River.
+"
+5096,"question : Is this text grammatically correct?
+answer : no
+context : They caught her without a license is what happened.
+"
+8442,"question : Is this text grammatically correct?
+answer : yes
+context : No one could remove the blood from the wall
+"
+4986,"question : Is this text grammatically correct?
+answer : no
+context : What was that the Vikings ate a real surprise to you?
+"
+2133,"question : Is this text grammatically correct?
+answer : no
+context : Monica covered a blanket over the baby.
+"
+3193,"question : Is this text grammatically correct?
+answer : no
+context : Innocent victims murder easily.
+"
+2688,"question : Is this text grammatically correct?
+answer : no
+context : The book brings easily to the meeting.
+"
+1709,"question : Is this text grammatically correct?
+answer : yes
+context : The hardest that I believe that it ever snowed was last January 12th.
+"
+1561,"question : Is this text grammatically correct?
+answer : yes
+context : Mike will sing if you will sing.
+"
+5411,"question : Is this text grammatically correct?
+answer : yes
+context : I have much typing to do.
+"
+3737,"question : Is this text grammatically correct?
+answer : no
+context : The tornadoes that tear through this county every spring is more than just a nuisance.
+"
+242,"question : Is this text grammatically correct?
+answer : no
+context : You eat the more, the more you want.
+"
+7350,"question : Is this text grammatically correct?
+answer : no
+context : I handed.
+"
+6192,"question : Is this text grammatically correct?
+answer : no
+context : Who did you wonder what kissed?
+"
+6398,"question : Is this text grammatically correct?
+answer : no
+context : Mary talked to any man or any woman.
+"
+1979,"question : Is this text grammatically correct?
+answer : yes
+context : The man who I gave John a picture of was bald.
+"
+2342,"question : Is this text grammatically correct?
+answer : no
+context : Mira condemned the accident on Terry.
+"
+6933,"question : Is this text grammatically correct?
+answer : no
+context : We are knowing this theory.
+"
+3121,"question : Is this text grammatically correct?
+answer : no
+context : Cynthia munched at peaches.
+"
+7958,"question : Is this text grammatically correct?
+answer : yes
+context : Who is sailing to Ithaca?
+"
+8390,"question : Is this text grammatically correct?
+answer : no
+context : Whales have I seen.
+"
+1550,"question : Is this text grammatically correct?
+answer : yes
+context : Tom ordered bacon, and Dick ordered lettuce, and Harry ordered tomatoes.
+"
+844,"question : Is this text grammatically correct?
+answer : yes
+context : I don't think Fred will, either.
+"
+569,"question : Is this text grammatically correct?
+answer : yes
+context : The river was avoided by the rolling stone.
+"
+2941,"question : Is this text grammatically correct?
+answer : no
+context : Donna fixed last night's leftovers into a sandwich.
+"
+7036,"question : Is this text grammatically correct?
+answer : yes
+context : Who did you say my talking to would bother?
+"
+252,"question : Is this text grammatically correct?
+answer : yes
+context : The more that pictures of himself appear in the news, the more embarrassed John becomes.
+"
+4594,"question : Is this text grammatically correct?
+answer : no
+context : Anything hasn't happened to his optimism.
+"
+6643,"question : Is this text grammatically correct?
+answer : yes
+context : Cakes were given to Margaret every Friday by the pupils in this maths class.
+"
+21,"question : Is this text grammatically correct?
+answer : yes
+context : We yelled ourselves hoarse.
+"
+1146,"question : Is this text grammatically correct?
+answer : yes
+context : He figured the answer out.
+"
+8428,"question : Is this text grammatically correct?
+answer : no
+context : I saw him ever.
+"
+4493,"question : Is this text grammatically correct?
+answer : no
+context : Lee likes not Kim.
+"
+3806,"question : Is this text grammatically correct?
+answer : yes
+context : That John passed surprised her, didn't it?
+"
+3102,"question : Is this text grammatically correct?
+answer : yes
+context : Cynthia nibbled the carrot .
+"
+1919,"question : Is this text grammatically correct?
+answer : no
+context : The only girl who it bothers me to wear that old fedora is Annabelle.
+"
+1114,"question : Is this text grammatically correct?
+answer : no
+context : He attributed to a short circuit the fire.
+"
+2893,"question : Is this text grammatically correct?
+answer : yes
+context : I separated the egg yolk and the egg white.
+"
+62,"question : Is this text grammatically correct?
+answer : no
+context : This building got than that one.
+"
+4537,"question : Is this text grammatically correct?
+answer : yes
+context : Sandy must have been, too.
+"
+1286,"question : Is this text grammatically correct?
+answer : no
+context : I went to the movies to not pick the shirts up.
+"
+1802,"question : Is this text grammatically correct?
+answer : no
+context : The socks are ready for you to announce that you will put on.
+"
+1586,"question : Is this text grammatically correct?
+answer : yes
+context : Webster touched a sword after Henry had done it.
+"
+6453,"question : Is this text grammatically correct?
+answer : no
+context : Mary didn't see almost any flower.
+"
+5968,"question : Is this text grammatically correct?
+answer : yes
+context : I have eaten the beef waffles.
+"
+7385,"question : Is this text grammatically correct?
+answer : yes
+context : I saw the brilliant one with long hair.
+"
+1695,"question : Is this text grammatically correct?
+answer : no
+context : Maxwell isn't half the doctor that polished off the vodka.
+"
+5614,"question : Is this text grammatically correct?
+answer : no
+context : My red is refrigerator.
+"
+7448,"question : Is this text grammatically correct?
+answer : no
+context : Mary wonders for Bill to come.
+"
+1627,"question : Is this text grammatically correct?
+answer : no
+context : How brave they must believe the claim that you are!
+"
+6113,"question : Is this text grammatically correct?
+answer : yes
+context : I walk.
+"
+3405,"question : Is this text grammatically correct?
+answer : no
+context : Phyllis lingered Sasha over lunch.
+"
+4818,"question : Is this text grammatically correct?
+answer : yes
+context : I don't know how to do it.
+"
+6268,"question : Is this text grammatically correct?
+answer : yes
+context : Jean seems to be in a good mood.
+"
+7710,"question : Is this text grammatically correct?
 answer : yes
-context : Sandy must have been, too."
-5810,"question : is this text grammatically correct?
-answer : yes
-context : That automobile factories abound in Michigan worries me greatly."
-4289,"question : is this text grammatically correct?
-answer : yes
-context : The cat seems to be out of the bag."
-1286,"question : is this text grammatically correct?
-answer : no
-context : I went to the movies to not pick the shirts up."
-5411,"question : is this text grammatically correct?
-answer : yes
-context : I have much typing to do."
-3504,"question : is this text grammatically correct?
-answer : yes
-context : Chris must liking syntax."
-2233,"question : is this text grammatically correct?
-answer : no
-context : This key won't open."
-4818,"question : is this text grammatically correct?
-answer : yes
-context : I don't know how to do it."
-7510,"question : is this text grammatically correct?
-answer : no
-context : John hurt John with John's umbrella when John tried to open it."
-3174,"question : is this text grammatically correct?
-answer : no
-context : The horse groomed itself."
-4767,"question : is this text grammatically correct?
-answer : yes
-context : These qualities recommended him to Oliver."
-6548,"question : is this text grammatically correct?
-answer : yes
-context : He was talkative and a bully."
-6536,"question : is this text grammatically correct?
-answer : no
-context : Who did you wonder if came?"
-3277,"question : is this text grammatically correct?
-answer : no
-context : In price soared oil."
-4220,"question : is this text grammatically correct?
-answer : no
-context : Her family are all avid skiers."
-4222,"question : is this text grammatically correct?
-answer : yes
-context : Both of the workers will wear carnations."
-1146,"question : is this text grammatically correct?
-answer : yes
-context : He figured the answer out."
-2946,"question : is this text grammatically correct?
-answer : no
-context : David constructed me a house."
-6484,"question : is this text grammatically correct?
-answer : yes
-context : At 4 p.m. I saw John lecturing to everyone who was near him."
-1857,"question : is this text grammatically correct?
-answer : yes
-context : Us, we'll go together."
-2842,"question : is this text grammatically correct?
-answer : no
-context : Carrie touched the stick into the cat."
-7306,"question : is this text grammatically correct?
-answer : yes
-context : It was in the barn or it took place in the barn."
-2236,"question : is this text grammatically correct?
-answer : yes
-context : This hammer won't break the window."
-242,"question : is this text grammatically correct?
-answer : no
-context : You eat the more, the more you want."
-6840,"question : is this text grammatically correct?
-answer : no
-context : I forwarded Winifred the letter."
-1282,"question : is this text grammatically correct?
-answer : no
-context : The excellent whisky which I went to the store and have bought was very costly."
-6192,"question : is this text grammatically correct?
-answer : no
-context : Who did you wonder what kissed?"
-4566,"question : is this text grammatically correct?
-answer : no
-context : The roof is leaked."
-711,"question : is this text grammatically correct?
-answer : no
-context : Mary persuaded that he should rest Bill."
-5453,"question : is this text grammatically correct?
-answer : yes
-context : I don't want trouble."
-8428,"question : is this text grammatically correct?
-answer : no
-context : I saw him ever."
-5286,"question : is this text grammatically correct?
-answer : yes
-context : This book I enjoyed."
-2133,"question : is this text grammatically correct?
-answer : no
-context : Monica covered a blanket over the baby."
-4918,"question : is this text grammatically correct?
-answer : no
-context : the pencil with that he is writing broke."
-1695,"question : is this text grammatically correct?
-answer : no
-context : Maxwell isn't half the doctor that polished off the vodka."
-1989,"question : is this text grammatically correct?
-answer : yes
-context : That the sun was out is obvious."
-336,"question : is this text grammatically correct?
-answer : yes
-context : He could not have been working."
-939,"question : is this text grammatically correct?
-answer : yes
-context : China is a country that Joe wants to visit, and he will too, if he gets enough money."
-30,"question : is this text grammatically correct?
-answer : yes
-context : John danced waltzes across the room."
-5260,"question : is this text grammatically correct?
-answer : no
-context : The men would all not have been working."
-2941,"question : is this text grammatically correct?
-answer : no
-context : Donna fixed last night's leftovers into a sandwich."
-5096,"question : is this text grammatically correct?
-answer : no
-context : They caught her without a license is what happened."
-3560,"question : is this text grammatically correct?
-answer : no
-context : The his jobs are in jeopardy."
-7909,"question : is this text grammatically correct?
-answer : no
-context : Aphrodite said he freed the animals and freed the animals he"
-2342,"question : is this text grammatically correct?
-answer : no
-context : Mira condemned the accident on Terry."
-7729,"question : is this text grammatically correct?
-answer : no
-context : The hospital was donated the book to."
-6465,"question : is this text grammatically correct?
-answer : no
-context : There is any book by Chomsky in this library."
-3782,"question : is this text grammatically correct?
-answer : yes
-context : They spoil their kids rotten."
-6640,"question : is this text grammatically correct?
-answer : yes
-context : Into which room did Jeeves sauntered?"
-1209,"question : is this text grammatically correct?
-answer : yes
-context : I believed the claim that Otto was wearing this hat."
-1909,"question : is this text grammatically correct?
-answer : no
-context : The time bomb had a snake behind the car which it was sitting in."
-1919,"question : is this text grammatically correct?
-answer : no
-context : The only girl who it bothers me to wear that old fedora is Annabelle."
-6398,"question : is this text grammatically correct?
-answer : no
-context : Mary talked to any man or any woman."
-3682,"question : is this text grammatically correct?
-answer : no
-context : John suddenly got the bus off."
-6260,"question : is this text grammatically correct?
-answer : no
-context : Louis begged Kate that she leave her job."
-3121,"question : is this text grammatically correct?
-answer : no
-context : Cynthia munched at peaches."
-6453,"question : is this text grammatically correct?
-answer : no
-context : Mary didn't see almost any flower."
-8390,"question : is this text grammatically correct?
-answer : no
-context : Whales have I seen."
-4887,"question : is this text grammatically correct?
-answer : no
-context : the paper to finish by tomorrow is too long."
-2530,"question : is this text grammatically correct?
-answer : no
-context : Jennifer craned her arm."
-6322,"question : is this text grammatically correct?
-answer : no
-context : Heidi believes Bill's description of herself."
-7710,"question : is this text grammatically correct?
-answer : yes
-context : Michael abandoned an old friend at Mardi Gras"
-7935,"question : is this text grammatically correct?
-answer : yes
-context : Humans love to eat the old pigs."
-8349,"question : is this text grammatically correct?
-answer : no
-context : I said this he left"
-1709,"question : is this text grammatically correct?
-answer : yes
-context : The hardest that I believe that it ever snowed was last January 12th."
-2098,"question : is this text grammatically correct?
-answer : yes
-context : Ann copied the manuscript, but she didn't finish it."
-5619,"question : is this text grammatically correct?
-answer : no
-context : Himself sang to George."
-6113,"question : is this text grammatically correct?
-answer : yes
-context : I walk."
-6643,"question : is this text grammatically correct?
-answer : yes
-context : Cakes were given to Margaret every Friday by the pupils in this maths class."
-7791,"question : is this text grammatically correct?
-answer : no
-context : What I arranged for Jenny was to be present."
-4075,"question : is this text grammatically correct?
-answer : no
-context : How much money Gordon spent is true."
-5336,"question : is this text grammatically correct?
-answer : yes
-context : Jack eats caviar more than he eats mush."
-813,"question : is this text grammatically correct?
-answer : no
-context : There is arriving three men at that station."
-2127,"question : is this text grammatically correct?
-answer : yes
-context : It is unreadable, guaranteed to give a headache to anyone who looks hard at the small print."
-4976,"question : is this text grammatically correct?
-answer : yes
-context : Experts all agree that dreams cause great anxiety and stress are called nightmares."
-941,"question : is this text grammatically correct?
-answer : no
-context : I know which book Max read, and which book Oscar hasn't done so."
-7958,"question : is this text grammatically correct?
-answer : yes
-context : Who is sailing to Ithaca?"
-1649,"question : is this text grammatically correct?
-answer : no
-context : Here's a knife which for you to cut up the onions with."
-252,"question : is this text grammatically correct?
-answer : yes
-context : The more that pictures of himself appear in the news, the more embarrassed John becomes."
-1387,"question : is this text grammatically correct?
-answer : no
-context : The place which I live at is the place where Route 150 crosses the Hudson River."
-5353,"question : is this text grammatically correct?
-answer : yes
-context : You and I are as alike as a horse and a cow."
-329,"question : is this text grammatically correct?
-answer : yes
-context : He hasn't often paid taxes, has he?"
-4659,"question : is this text grammatically correct?
-answer : no
-context : They said him to be rich."
-898,"question : is this text grammatically correct?
-answer : no
-context : I visited every town in every country I had to."
-8442,"question : is this text grammatically correct?
-answer : yes
-context : No one could remove the blood from the wall"
-4594,"question : is this text grammatically correct?
-answer : no
-context : Anything hasn't happened to his optimism."
-6885,"question : is this text grammatically correct?
-answer : yes
-context : Near Strasbourg my brother lives."
-5051,"question : is this text grammatically correct?
-answer : no
-context : Surprised me that you came early."
-6933,"question : is this text grammatically correct?
+context : Michael abandoned an old friend at Mardi Gras
+"
+396,"question : Is this text grammatically correct?
 answer : no
-context : We are knowing this theory."
-4458,"question : is this text grammatically correct?
-answer : no
-context : They will do come."
-7516,"question : is this text grammatically correct?
-answer : yes
-context : He should decide soon."
-7340,"question : is this text grammatically correct?
-answer : yes
-context : I liked Mary."
-7892,"question : is this text grammatically correct?
-answer : no
-context : Bill's reading Shakespeare and Maureen's singing Schubert satisfies me"
-7554,"question : is this text grammatically correct?
-answer : no
-context : I heard John's criticism of myself."
-2688,"question : is this text grammatically correct?
-answer : no
-context : The book brings easily to the meeting."
-2333,"question : is this text grammatically correct?
-answer : no
-context : The jeweller copied the ring with the name."
-1952,"question : is this text grammatically correct?
-answer : yes
-context : John met Mary in Vienna."
-4997,"question : is this text grammatically correct?
-answer : yes
-context : John made it clear that he would finish it on time."
-3356,"question : is this text grammatically correct?
-answer : yes
-context : The accident happened."
-3288,"question : is this text grammatically correct?
-answer : yes
-context : There exists a solution to this problem."
-3016,"question : is this text grammatically correct?
-answer : yes
-context : They praised them as volunteers."
-4954,"question : is this text grammatically correct?
-answer : no
-context : Which celebrity did he mention the fact that he had run into?"
-5004,"question : is this text grammatically correct?
-answer : no
-context : To please John is eager."
-7017,"question : is this text grammatically correct?
-answer : no
-context : Chris will become talking to colleagues."
-5344,"question : is this text grammatically correct?
-answer : yes
-context : Mary is taller than six feet."
-8322,"question : is this text grammatically correct?
-answer : yes
-context : There is a description of Aristotle in the book."
-6750,"question : is this text grammatically correct?
-answer : yes
-context : Write a letter to Anne Elliott."
-6541,"question : is this text grammatically correct?
-answer : no
-context : Who did you wonder saw Kim?"
-5941,"question : is this text grammatically correct?
-answer : yes
-context : Louis was forgiven by Susan."
-4732,"question : is this text grammatically correct?
-answer : yes
-context : He got hit in the face with the tip of a surfboard."
-3514,"question : is this text grammatically correct?
-answer : no
-context : He washed myself."
-1330,"question : is this text grammatically correct?
-answer : yes
-context : Sasha is gobbling down dumplings faster than I can reheat them."
-1979,"question : is this text grammatically correct?
-answer : yes
-context : The man who I gave John a picture of was bald."
-2478,"question : is this text grammatically correct?
-answer : yes
-context : Kelly buttered the bread."
-1550,"question : is this text grammatically correct?
-answer : yes
-context : Tom ordered bacon, and Dick ordered lettuce, and Harry ordered tomatoes."
-3774,"question : is this text grammatically correct?
-answer : no
-context : The best writer was considered Andrew."
-324,"question : is this text grammatically correct?
-answer : no
-context : I aren't going."
-3149,"question : is this text grammatically correct?
-answer : yes
-context : Sharon flinched at the sight of the accident."
-1627,"question : is this text grammatically correct?
-answer : no
-context : How brave they must believe the claim that you are!"
-7220,"question : is this text grammatically correct?
-answer : no
-context : It is arrive tomorrow that Mary will."
-2893,"question : is this text grammatically correct?
-answer : yes
-context : I separated the egg yolk and the egg white."
-7257,"question : is this text grammatically correct?
-answer : no
-context : I prefer for the girl to will win."
-6060,"question : is this text grammatically correct?
-answer : no
-context : If he is a rich man, he'd buy a diamond ring."
-5355,"question : is this text grammatically correct?
-answer : no
-context : John is as much intelligent as Mary."
-6268,"question : is this text grammatically correct?
-answer : yes
-context : Jean seems to be in a good mood."
-6917,"question : is this text grammatically correct?
-answer : yes
-context : The intense cold killed the climbers."
-1325,"question : is this text grammatically correct?
-answer : no
-context : I saw you there and who ate what?"
-4663,"question : is this text grammatically correct?
-answer : yes
-context : John kicked him."
-4854,"question : is this text grammatically correct?
-answer : no
-context : I wonder what city that Romans destroyed."
-4472,"question : is this text grammatically correct?
-answer : no
-context : The proposal did be endorsed by Clinton."
-1586,"question : is this text grammatically correct?
-answer : yes
-context : Webster touched a sword after Henry had done it."
-249,"question : is this text grammatically correct?
-answer : no
-context : He gets angry if John has to wait."
-21,"question : is this text grammatically correct?
-answer : yes
-context : We yelled ourselves hoarse."
-5559,"question : is this text grammatically correct?
+context : John seems that it is likely to win.
+"
+4749,"question : Is this text grammatically correct?
 answer : yes
-context : John is taller than Pete is."
-844,"question : is this text grammatically correct?
+context : Which man did you talk to?
+"
+5286,"question : Is this text grammatically correct?
 answer : yes
-context : I don't think Fred will, either."
-1196,"question : is this text grammatically correct?
-answer : yes
-context : That the defendant had been rude was stoutly denied by his lawyer."
-7350,"question : is this text grammatically correct?
-answer : no
-context : I handed."
-1297,"question : is this text grammatically correct?
-answer : no
-context : Which quonset hut does the boy work in a skyscraper and the girl in?"
-2412,"question : is this text grammatically correct?
-answer : yes
-context : The contractor will build a house for $ 100,000."
-7385,"question : is this text grammatically correct?
-answer : yes
-context : I saw the brilliant one with long hair."
-7561,"question : is this text grammatically correct?
-answer : yes
-context : the girls likes them."
-3762,"question : is this text grammatically correct?
-answer : yes
-context : She was sent a review copy of the book by the publisher."
-4387,"question : is this text grammatically correct?
-answer : no
-context : The house is been remodelling."
-1212,"question : is this text grammatically correct?
-answer : yes
-context : The hat which I believed that Otto was wearing is red."
-300,"question : is this text grammatically correct?
-answer : yes
-context : They failed to tell me which problem the sooner I solve, the quicker the folks up at corporate headquarters."
-3032,"question : is this text grammatically correct?
-answer : yes
-context : Brenda and Molly haggled."
-7668,"question : is this text grammatically correct?
-answer : no
-context : John convinced Bill for Mary to sleep."
-1968,"question : is this text grammatically correct?
-answer : yes
-context : I deny that it is certain that Bob has any money."
-4343,"question : is this text grammatically correct?
-answer : no
-context : He believed there to be likely that he won the game."
-5962,"question : is this text grammatically correct?
-answer : yes
-context : Heidi thinks that Andy has eaten salmon flavored candy bars."
-4562,"question : is this text grammatically correct?
-answer : no
-context : Tagalog is speak in the Philippines."
-4489,"question : is this text grammatically correct?
-answer : yes
-context : Duty made them not miss the weekly meetings."
-6182,"question : is this text grammatically correct?
-answer : yes
-context : What did Bill claim that he read?"
-2350,"question : is this text grammatically correct?
-answer : no
-context : I stalked for game in the woods."
-3102,"question : is this text grammatically correct?
-answer : yes
-context : Cynthia nibbled the carrot ."
-1844,"question : is this text grammatically correct?
-answer : no
-context : I like beer, me."
-1561,"question : is this text grammatically correct?
-answer : yes
-context : Mike will sing if you will sing."
-8477,"question : is this text grammatically correct?
+context : This book I enjoyed.
+"
+5260,"question : Is this text grammatically correct?
 answer : no
-context : The bears sniffs"
-7093,"question : is this text grammatically correct?
+context : The men would all not have been working.
+"
+813,"question : Is this text grammatically correct?
 answer : no
-context : John drinks coffee at 11, and Mary, tea at 10:30."
-569,"question : is this text grammatically correct?
-answer : yes
-context : The river was avoided by the rolling stone."
-3405,"question : is this text grammatically correct?
-answer : no
-context : Phyllis lingered Sasha over lunch."
-4493,"question : is this text grammatically correct?
+context : There is arriving three men at that station.
+"
+6536,"question : Is this text grammatically correct?
 answer : no
-context : Lee likes not Kim."
-8047,"question : is this text grammatically correct?
+context : Who did you wonder if came?
+"
+2236,"question : Is this text grammatically correct?
 answer : yes
-context : Why did you say that you were leaving?"
-788,"question : is this text grammatically correct?
+context : This hammer won't break the window.
+"
+6640,"question : Is this text grammatically correct?
 answer : yes
-context : To go abroad would be nice."
-3841,"question : is this text grammatically correct?
-answer : yes
-context : She was the nicest teacher in the Senior School."
-5968,"question : is this text grammatically correct?
-answer : yes
-context : I have eaten the beef waffles."
-5614,"question : is this text grammatically correct?
+context : Into which room did Jeeves sauntered?
+"
+1909,"question : Is this text grammatically correct?
 answer : no
-context : My red is refrigerator."
-7533,"question : is this text grammatically correct?
+context : The time bomb had a snake behind the car which it was sitting in.
+"
+2748,"question : Is this text grammatically correct?
 answer : no
-context : Mary noticed John's excessive appreciation of herself."
-7036,"question : is this text grammatically correct?
+context : Carmen obtained Mary a spare part.
+"
+336,"question : Is this text grammatically correct?
 answer : yes
-context : Who did you say my talking to would bother?"
-1114,"question : is this text grammatically correct?
-answer : no
-context : He attributed to a short circuit the fire."
-83,"question : is this text grammatically correct?
+context : He could not have been working.
+"
+4659,"question : Is this text grammatically correct?
 answer : no
-context : The elevator rumbled itself to the ground."
-2472,"question : is this text grammatically correct?
+context : They said him to be rich.
+"
+3149,"question : Is this text grammatically correct?
 answer : yes
-context : Sarah sang a song."
-1528,"question : is this text grammatically correct?
-answer : no
-context : I talked to Winston about Winston."
-3196,"question : is this text grammatically correct?
+context : Sharon flinched at the sight of the accident.
+"
+1857,"question : Is this text grammatically correct?
 answer : yes
-context : The witch poisoned Snow White."
-7448,"question : is this text grammatically correct?
-answer : no
-context : Mary wonders for Bill to come."
-1272,"question : is this text grammatically correct?
-answer : no
-context : Whose tax did the nurse polish her trombone and the plumber compute?"
-1802,"question : is this text grammatically correct?
+context : Us, we'll go together.
+"
+1649,"question : Is this text grammatically correct?
 answer : no
-context : The socks are ready for you to announce that you will put on."
-6118,"question : is this text grammatically correct?
-answer : no
-context : It is likely Patrick to leave."
-3193,"question : is this text grammatically correct?
-answer : no
-context : Innocent victims murder easily."
-6944,"question : is this text grammatically correct?
+context : Here's a knife which for you to cut up the onions with.
+"
+5453,"question : Is this text grammatically correct?
 answer : yes
-context : The beaver built a dam."
-396,"question : is this text grammatically correct?
-answer : no
-context : John seems that it is likely to win."
-1781,"question : is this text grammatically correct?
+context : I don't want trouble.
+"
+2098,"question : Is this text grammatically correct?
 answer : yes
-context : Willy is taller than Bill by as much as everybody seems to expect me to admit to having publicly proclaimed that I believed."
-4986,"question : is this text grammatically correct?
+context : Ann copied the manuscript, but she didn't finish it.
+"
+3682,"question : Is this text grammatically correct?
 answer : no
-context : What was that the Vikings ate a real surprise to you?"
-3737,"question : is this text grammatically correct?
+context : John suddenly got the bus off.
+"
+4220,"question : Is this text grammatically correct?
 answer : no
-context : The tornadoes that tear through this county every spring is more than just a nuisance."
-8005,"question : is this text grammatically correct?
-answer : yes
-context : That Jason arrived infuriated Medea."
-3806,"question : is this text grammatically correct?
-answer : yes
-context : That John passed surprised her, didn't it?"
-4835,"question : is this text grammatically correct?
-answer : yes
-context : When did he say that he was fired?"
-2748,"question : is this text grammatically correct?
-answer : no
-context : Carmen obtained Mary a spare part."
-3574,"question : is this text grammatically correct?
-answer : yes
-context : He did not leave."
-1609,"question : is this text grammatically correct?
-answer : yes
-context : He said he would leave and now he's done it."
-4749,"question : is this text grammatically correct?
-answer : yes
-context : Which man did you talk to?"
-5395,"question : is this text grammatically correct?
-answer : yes
-context : He's enough of a fool to try it."
-2475,"question : is this text grammatically correct?
-answer : yes
-context : Sarah sang a hymn."
-62,"question : is this text grammatically correct?
+context : Her family are all avid skiers.
+"
+2842,"question : Is this text grammatically correct?
 answer : no
-context : This building got than that one."
-1799,"question : is this text grammatically correct?
+context : Carrie touched the stick into the cat.
+"
+3504,"question : Is this text grammatically correct?
 answer : yes
-context : The socks are ready for you to put on."
-4433,"question : is this text grammatically correct?
+context : Chris must liking syntax.
+"
+4114,"question : Is this text grammatically correct?
 answer : yes
-context : John is happy about the outcome."
-8544,"question : is this text grammatically correct?
+context : The public never had faith in his ability to handle the job.
+"
+8322,"question : Is this text grammatically correct?
 answer : yes
-context : Gilgamesh hasn't kissed Ishtar."
-7395,"question : is this text grammatically correct?
+context : There is a description of Aristotle in the book.
+"
+7395,"question : Is this text grammatically correct?
 answer : no
-context : It is of physics."
-7402,"question : is this text grammatically correct?
-answer : yes
-context : They specialized."
-4114,"question : is this text grammatically correct?
-answer : yes
-context : The public never had faith in his ability to handle the job."
+context : It is of physics.
+"
