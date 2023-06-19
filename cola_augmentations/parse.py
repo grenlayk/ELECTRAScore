@@ -44,5 +44,6 @@ if __name__ == "__main__":
 
     dict_df["text"].replace("", np.nan, inplace=True)
     dict_df = dict_df.dropna(subset=["text"]).reset_index(drop=True)
+    dict_df = dict_df.drop_duplicates(subset=['text', 'label'])
     print(Counter(dict_df["label"]))
     dict_df.to_csv(os.path.join(base_path, "generated_data.csv"), index=False)
