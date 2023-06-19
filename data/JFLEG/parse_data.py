@@ -34,7 +34,8 @@ def add_item(jfleg, block_id, idx, src_text, text, value):
 
 def create_dataset(
         remove_correct_students: bool = True,
-        remove_duplicates: bool = True):
+        remove_duplicates: bool = True,
+        student_src: bool = False):
     test = []
     for i in range(REF_NUM):
         with open(f'jfleg/test/test.ref{i}', 'r') as f:
@@ -68,8 +69,9 @@ def create_dataset(
     jfleg = dict()
     for i, (text_group, value_group) in enumerate(zip(grouped_texts, grouped_values)):
         for j, (text, value) in enumerate(zip(text_group, value_group)):
-            # src_text = text_group[0]
             src_text = text
+            if student_src:
+                src_text = text_group[0]
             add_item(jfleg, i, j, src_text, text, value)
     return jfleg
 
@@ -77,5 +79,6 @@ def create_dataset(
 jfleg = create_dataset(
     remove_correct_students=True,
     remove_duplicates=True,
+    student_src=False,
 )
 save_pickle(jfleg, 'data.pkl')
