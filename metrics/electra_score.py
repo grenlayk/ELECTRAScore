@@ -8,7 +8,7 @@ from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           DataCollatorWithPadding)
 
 from metrics.utils import split_into_sentences
-
+from datasets.utils.logging import disable_progress_bar
 
 class ELECTRAScorer:
     def __init__(
@@ -20,6 +20,7 @@ class ELECTRAScorer:
         tokenizer=None,
     ):
         # Set up model
+        disable_progress_bar()
         self.device = device
         self.max_length = max_length
         if checkpoint is None:
