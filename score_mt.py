@@ -21,13 +21,14 @@ class MTScorer:
         """
         self.device = device
         self.data = read_pickle(file_path)
-        print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Data loaded from {file_path}.')
+        print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] \
+              Data loaded from {file_path}.')
 
         self.refs, self.betters, self.worses = [], [], []
         for doc_id in self.data:
             self.refs.append(self.data[doc_id]['ref'])
             self.betters.append(self.data[doc_id]['better']['sys'])
-            if 'WMT' not in file_path:
+            if 'worse' in self.data[doc_id]:
                 self.worses.append(self.data[doc_id]['worse']['sys'])
 
     def save_data(self, path):
@@ -36,9 +37,11 @@ class MTScorer:
     def record(self, scores_better, scores_worse, name):
         """ Record the scores from a metric """
         for idx, doc_id in enumerate(self.data):
-            self.data[doc_id]['better']['scores'][name] = str(scores_better[idx])
+            self.data[doc_id]['better']['scores'][name] = str(
+                scores_better[idx])
             if len(self.worses) > 0:
-                self.data[doc_id]['worse']['scores'][name] = str(scores_worse[idx])
+                self.data[doc_id]['worse']['scores'][name] = str(
+                    scores_worse[idx])
 
     def score(self, metrics, model=None, tokenizer=None):
         for metric_name in metrics:
@@ -60,12 +63,15 @@ class MTScorer:
                     return f1.numpy()
 
                 start = time.time()
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Begin calculating BERTScore.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]'
+                      'Begin calculating BERTScore.', sep=' ')
                 scores_better = run_bertscore(self.betters, self.refs)
                 scores_worse = []
                 if len(self.worses) > 0:
                     scores_worse = run_bertscore(self.worses, self.refs)
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BERTScore, time passed {time.time() - start}s.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]'
+                      'Finished calculating BERTScore,'
+                      'time passed {time.time() - start}s.', sep=' ')
                 self.record(scores_better, scores_worse, 'bert_score')
 
             elif (metric_name == 'bart_score' or metric_name == 'bart_score_cnn' or
@@ -80,25 +86,38 @@ class MTScorer:
 
                 # Set up BARTScore
                 if 'cnn' in metric_name:
-                    bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/bart-large-cnn')
+                    bart_scorer = BARTScorer(
+                        device=self.device,
+                        checkpoint='facebook/bart-large-cnn')
                 elif 'para' in metric_name:
-                    bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/bart-large-cnn')
+                    bart_scorer = BARTScorer(
+                        device=self.device,
+                        checkpoint='facebook/bart-large-cnn')
                     bart_scorer.load()
                 else:
                     if 'm' in metric_name:
-                        bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/mbart-large-50')
+                        bart_scorer = BARTScorer(
+                            device=self.device,
+                            checkpoint='facebook/mbart-large-50')
                     else:
-                        bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/bart-large')
+                        bart_scorer = BARTScorer(
+                            device=self.device,
+                            checkpoint='facebook/bart-large')
 
                 start = time.time()
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Begin calculating BARTScore ({metric_name}).')
-                scores_better = run_bartscore(bart_scorer, self.betters, self.refs)
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]',
+                      'Begin calculating BARTScore ({metric_name}).', sep=' ')
+                scores_better = run_bartscore(
+                    bart_scorer, self.betters, self.refs)
                 scores_worse = []
                 if len(self.worses) > 0:
-                    scores_worse = run_bartscore(bart_scorer, self.worses, self.refs)
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BARTScore, time passed {time.time() - start}s.')
+                    scores_worse = run_bartscore(
+                        bart_scorer, self.worses, self.refs)
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]'
+                      'Finished calculating BARTScore,'
+                      'time passed {time.time() - start}s.', sep=' ')
                 self.record(scores_better, scores_worse, metric_name)
-            
+
             elif metric_name == 'electra_score':
                 """ ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
@@ -117,29 +136,32 @@ class MTScorer:
                         tokenizer=tokenizer,
                         device=self.device)
 
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] ELECTRAScorer for {metric_name} setup finished. \
-                      Begin calculating ELECTRAScore.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]'
+                      'ELECTRAScorer for {metric_name} setup finished.'
+                      'Begin calculating ELECTRAScore.', sep=' ')
 
                 start = time.time()
                 scores_better = run_electrascore(electra_scorer, self.betters)
-                scores_better_mean = run_electrascore(electra_scorer,
-                    self.betters, sent_agg_func=torch.mean)
-                scores_better_min = run_electrascore(electra_scorer,
-                    self.betters, sent_agg_func=torch.min)
-                scores_better_median = run_electrascore(electra_scorer,
-                    self.betters, sent_agg_func=torch.median)
+                scores_better_mean = run_electrascore(
+                    electra_scorer, self.betters, sent_agg_func=torch.mean)
+                scores_better_min = run_electrascore(
+                    electra_scorer, self.betters, sent_agg_func=torch.min)
+                scores_better_median = run_electrascore(
+                    electra_scorer, self.betters, sent_agg_func=torch.median)
 
                 scores_worse, scores_worse_mean, scores_worse_median, scores_worse_min = [], [], [], []
                 if len(self.worses) > 0:
                     scores_worse = run_electrascore(
                         electra_scorer, self.worses)
-                    scores_worse_mean = run_electrascore(electra_scorer,
-                        self.worses, sent_agg_func=torch.mean)
-                    scores_worse_min = run_electrascore(electra_scorer,
-                        self.worses, sent_agg_func=torch.min)
-                    scores_worse_median = run_electrascore(electra_scorer,
-                        self.worses, sent_agg_func=torch.median)
-                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BARTScore, time passed {time.time() - start}s.')
+                    scores_worse_mean = run_electrascore(
+                        electra_scorer, self.worses, sent_agg_func=torch.mean)
+                    scores_worse_min = run_electrascore(
+                        electra_scorer, self.worses, sent_agg_func=torch.min)
+                    scores_worse_median = run_electrascore(
+                        electra_scorer, self.worses, sent_agg_func=torch.median)
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}]'
+                      'Finished calculating BARTScore,'
+                      'time passed {time.time() - start}s.', sep=' ')
                 self.record(scores_better, scores_worse, f'{metric_name}')
                 self.record(scores_better_mean,
                             scores_worse_mean, f'{metric_name}_mean')
