@@ -4,19 +4,11 @@ This work proposes a new metric called ELECTRAScore, based on the ELECTRA model 
 
 ## Setup
 
-```bash
-pip install -r requirements.txt
-```
-
 BARTScore (trained on ParaBank2) can be downloaded [here](https://drive.google.com/file/d/1_7JfF7KOInb7ZrxKHIigTMR4ChVET01m/view?usp=sharing). It should be moved to the `models` folder. 
 
-Alternatively, run this code:
-
+This download and installation of required packages:
 ```bash
-# running from ELECTRAScore root folder
-mkdir models
-gdown 1_7JfF7KOInb7ZrxKHIigTMR4ChVET01m 
-mv bart_score.pth models/bart.pth # downloaded file should be in models folder
+sh scripts/setup.sh
 ```
 
 ## Data
