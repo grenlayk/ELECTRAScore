@@ -1,3 +1,8 @@
+""" This code was inherited from BARTScore repo and modified for our needs.
+https://github.com/neulab/BARTScore/blob/main/SUM/score.py
+Thanks to BARTScore's authors for their work.
+"""
+
 import argparse
 import time
 
@@ -9,7 +14,7 @@ from utils import detokenize, read_pickle, save_pickle
 
 
 class Scorer:
-    """ Support BERTScore, BARTScore """
+    """ Support BERTScore, BARTScore, ELECTRAScore"""
 
     def __init__(self, file_path, device='cuda:0', multi_ref=False):
         """ file_path: path to the pickle file

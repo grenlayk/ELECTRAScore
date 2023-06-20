@@ -50,7 +50,8 @@ def merge_data(cola, data_augm, num_pos_to_leave):
 
 def score_dataset_with_model(
         tokenizer, models, metrics_names,
-        name='SummEval', device='cuda:0', output='summeval_scores.pkl', multi_ref=True):
+        name='SummEval', device='cuda:0',
+        output='summeval_scores.pkl', multi_ref=True):
     print(f'Starting scoring for {name}.')
     scorer = Scorer(f'data/{name}/data.pkl', device, multi_ref)
     for model, metric in zip(models, metrics_names):

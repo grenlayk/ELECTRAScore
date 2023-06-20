@@ -26,14 +26,12 @@ if __name__ == '__main__':
             Newsroom, SummEval, JFLEG or CONLL.'
     )
     parser.add_argument(
-        '--input_file', type=str, required=False,
-        default='scores.pkl',
+        '--input_file', type=str, required=False, default='scores.pkl',
         help='Name of file to evaluate in dataset folder. Default: scores.pkl'
     )
     parser.add_argument(
-        '--dataset_level', type=bool, required=False,
-        default=False,
-        help='Type of aggregation for JFLEG dataset.'
+        '--dataset_level', action='store_true', required=False,
+        default=False, help='Type of aggregation for JFLEG dataset.'
     )
 
     args = parser.parse_args()
