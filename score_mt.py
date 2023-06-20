@@ -12,7 +12,7 @@ import torch
 from datetime import datetime
 
 
-class Scorer:
+class MTScorer:
     """ Support BERTScore, BARTScore, ELECTRAScore """
 
     def __init__(self, file_path, device='cuda:0'):
@@ -171,7 +171,7 @@ def main():
                         help='Whether to calculate ELECTRAScore')
     args = parser.parse_args()
 
-    scorer = Scorer(args.file, args.device)
+    scorer = MTScorer(args.file, args.device)
 
     METRICS = []
     if args.bert_score:

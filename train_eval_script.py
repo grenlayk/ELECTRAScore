@@ -5,6 +5,7 @@ from collections import Counter
 import transformers as ts
 
 from score import Scorer
+from score_mt import MTScorer
 from analysis import SUMStat
 
 
@@ -61,18 +62,49 @@ def score_dataset_with_model(
           Saved results to data/{name}/{output}')
 
 
-def evaluate_all(summeval_output, newsroom_output):
+def score_mt_dataset_with_model(
+        tokenizer, models, metrics_names,
+        name='WMT', device='cuda:0',
+        output='scores_2021.pkl',
+        input='data.pkl'):
+    print(f'Starting scoring for {name}.')
+    scorer = MTScorer(f'data/{name}/{input}', device)
+    for model, metric in zip(models, metrics_names):
+        scorer.score([metric], model, tokenizer)
+    scorer.save_data(f'data/{name}/{output}')
+    print(f'Finished scoring for {name}. \
+          Saved results to data/{name}/{output}')
+
+
+def evaluate_all(
+        summeval_output=None,
+        newsroom_output=None,
+        conll_output=None,
+        jfleg_output=None,
+        border_casting=False
+    ):
+    if conll_output:
+        summ_stat = SUMStat(f'data/CONLL/{conll_output}')
+        print(f"Evaluation of CONLL dataset (data/CONLL/{conll_output}):")
+        summ_stat.evaluate('fluency', dataset_level=True)
+    if jfleg_output:
+        summ_stat = SUMStat(f'data/JFLEG/{jfleg_output}')
+        print(f"Evaluation of JFLEG dataset (data/JFLEG/{jfleg_output}):")
+        summ_stat.evaluate('fluency', dataset_level=True)
     # Evaluation for SummEval, Newsroom, and Newsroom>=4
-    print(f"Evaluation of SummEval dataset (data/SummEval/{summeval_output}):")
-    summ_stat_summeval = SUMStat(f'data/SummEval/{summeval_output}')
-    summ_stat_summeval.evaluate_summary('fluency')
-    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output}):")
-    summ_stat_newsroom = SUMStat(f'data/Newsroom/{newsroom_output}')
-    summ_stat_newsroom.evaluate_summary('fluency')
-    print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
-    print('Binary casting enabled with (< 4) --> 0, (>=4) --> 1')
-    summ_stat_newsroom.evaluate_summary(
-        'fluency', dataset_level=True, binary_casting=True, cast_border=4.0)
+    if summeval_output:
+        print(f"Evaluation of SummEval dataset (data/SummEval/{summeval_output}):")
+        summ_stat_summeval = SUMStat(f'data/SummEval/{summeval_output}')
+        summ_stat_summeval.evaluate_summary('fluency')
+    if newsroom_output:
+        print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output}):")
+        summ_stat_newsroom = SUMStat(f'data/Newsroom/{newsroom_output}')
+        summ_stat_newsroom.evaluate_summary('fluency')
+    if newsroom_output and border_casting:
+        print(f"Evaluation of Newsroom dataset (data/Newsroom/{newsroom_output})")
+        print('Binary casting enabled with (< 4) --> 0, (>=4) --> 1')
+        summ_stat_newsroom.evaluate_summary(
+            'fluency', dataset_level=True, binary_casting=True, cast_border=4.0)
 
 
 def filter_train_and_evaluate(
