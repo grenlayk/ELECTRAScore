@@ -14,3 +14,6 @@ torch==2.0.1
 tqdm==4.65.0
 transformers==4.28.1
 wandb==0.15.2
+
+sentencepiece
+protobuf==3.20.0

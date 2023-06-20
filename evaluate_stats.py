@@ -1,21 +1,25 @@
 import argparse
 
-from analysis import SUMStat
+from analysis import SUMStat, WMTStat
 
 
 def main(dataset, input_file, dataset_level):
-    if dataset in ['Newsroom', 'SummEval', 'JFLEG', 'CONLL']:
-        summ_stat = SUMStat(f'data/{dataset}/{input_file}')
-        print("Evaluation of ", dataset, " dataset:")
-        if dataset == 'JFLEG':
-            summ_stat.evaluate('fluency', dataset_level=dataset_level)
-        elif dataset == 'CONLL':
-            summ_stat.evaluate('fluency', dataset_level=True)
+    if dataset in ['Newsroom', 'SummEval', 'JFLEG', 'CONLL', 'WMT']:
+        print("Evaluation of ", dataset, f" dataset ({input_file}):")
+        if dataset == 'WMT':
+            wmt_stat = WMTStat(f'data/{dataset}/{input_file}')
+            wmt_stat.evaluate_translation('fluency')
         else:
-            summ_stat.evaluate_summary('fluency', dataset_level=False)
+            summ_stat = SUMStat(f'data/{dataset}/{input_file}')
+            if dataset == 'JFLEG':
+                summ_stat.evaluate('fluency', dataset_level=dataset_level)
+            elif dataset == 'CONLL':
+                summ_stat.evaluate('fluency', dataset_level=True)
+            else:
+                summ_stat.evaluate_summary('fluency', dataset_level=False)
     else:
         print('You used wrong dataset. \
-              Please choose Newsroom, SummEval, JFLEG or CONLL.')
+              Please choose Newsroom, SummEval, JFLEG,  CONLL or WMT.')
 
 
 if __name__ == '__main__':
@@ -23,7 +27,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--dataset', type=str, required=True,
         help='The dataset to calculate statistics. \
-            Newsroom, SummEval, JFLEG or CONLL.'
+            Newsroom, SummEval, JFLEG, CONLL or WMT.'
     )
     parser.add_argument(
         '--input_file', type=str, required=False, default='scores.pkl',

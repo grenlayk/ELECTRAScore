@@ -9,6 +9,7 @@ import numpy as np
 from utils import *
 from tqdm import tqdm
 import torch
+from datetime import datetime
 
 
 class Scorer:
@@ -20,7 +21,7 @@ class Scorer:
         """
         self.device = device
         self.data = read_pickle(file_path)
-        print(f'Data loaded from {file_path}.')
+        print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Data loaded from {file_path}.')
 
         self.refs, self.betters, self.worses = [], [], []
         for doc_id in self.data:
@@ -59,12 +60,12 @@ class Scorer:
                     return f1.numpy()
 
                 start = time.time()
-                print(f'Begin calculating BERTScore.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Begin calculating BERTScore.')
                 scores_better = run_bertscore(self.betters, self.refs)
                 scores_worse = []
                 if len(self.worses) > 0:
                     scores_worse = run_bertscore(self.worses, self.refs)
-                print(f'Finished calculating BERTScore, time passed {time.time() - start}s.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BERTScore, time passed {time.time() - start}s.')
                 self.record(scores_better, scores_worse, 'bert_score')
 
             elif (metric_name == 'bart_score' or metric_name == 'bart_score_cnn' or
@@ -90,12 +91,12 @@ class Scorer:
                         bart_scorer = BARTScorer(device=self.device, checkpoint='facebook/bart-large')
 
                 start = time.time()
-                print(f'Begin calculating BARTScore.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Begin calculating BARTScore ({metric_name}).')
                 scores_better = run_bartscore(bart_scorer, self.betters, self.refs)
                 scores_worse = []
                 if len(self.worses) > 0:
                     scores_worse = run_bartscore(bart_scorer, self.worses, self.refs)
-                print(f'Finished calculating BARTScore, time passed {time.time() - start}s.')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BARTScore, time passed {time.time() - start}s.')
                 self.record(scores_better, scores_worse, metric_name)
             
             elif metric_name == 'electra_score':
@@ -116,7 +117,7 @@ class Scorer:
                         tokenizer=tokenizer,
                         device=self.device)
 
-                print(f'ELECTRAScorer for {metric_name} setup finished. \
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] ELECTRAScorer for {metric_name} setup finished. \
                       Begin calculating ELECTRAScore.')
 
                 start = time.time()
@@ -138,8 +139,8 @@ class Scorer:
                         self.worses, sent_agg_func=torch.min)
                     scores_worse_median = run_electrascore(electra_scorer,
                         self.worses, sent_agg_func=torch.median)
-                print(f'Finished calculating BARTScore, time passed {time.time() - start}s.')
-                self.record(scores_better, scores_worse, 'metric_name')
+                print(f'[{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}] Finished calculating BARTScore, time passed {time.time() - start}s.')
+                self.record(scores_better, scores_worse, f'{metric_name}')
                 self.record(scores_better_mean,
                             scores_worse_mean, f'{metric_name}_mean')
                 self.record(scores_better_median,
