@@ -81,8 +81,7 @@ def evaluate_all(
         newsroom_output=None,
         conll_output=None,
         jfleg_output=None,
-        border_casting=False
-    ):
+        border_casting=False):
     if conll_output:
         summ_stat = SUMStat(f'data/CONLL/{conll_output}')
         print(f"Evaluation of CONLL dataset (data/CONLL/{conll_output}):")
