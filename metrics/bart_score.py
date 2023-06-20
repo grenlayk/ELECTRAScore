@@ -4,6 +4,7 @@ import traceback
 import torch
 import torch.nn as nn
 from transformers import BartForConditionalGeneration, BartTokenizer
+from transformers import MBart50TokenizerFast, MBartForConditionalGeneration
 
 
 class BARTScorer:
@@ -16,8 +17,13 @@ class BARTScorer:
         # Set up model
         self.device = device
         self.max_length = max_length
-        self.tokenizer = BartTokenizer.from_pretrained(checkpoint)
-        self.model = BartForConditionalGeneration.from_pretrained(checkpoint)
+        if checkpoint == 'facebook/mbart-large-50':
+            self.tokenizer = MBart50TokenizerFast.from_pretrained(
+                checkpoint, src_lang='zh_CN', tgt_lang='en_XX')
+            self.model = MBartForConditionalGeneration.from_pretrained(checkpoint)
+        else:
+            self.tokenizer = BartTokenizer.from_pretrained(checkpoint)
+            self.model = BartForConditionalGeneration.from_pretrained(checkpoint)
         self.model.eval()
         self.model.to(device)
 

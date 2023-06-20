@@ -165,6 +165,8 @@ electra_tuning/data
 wandb/
 data/JFLEG/jfleg
 data/CONLL/conll14st-test-data
+data/WMT/data
+data/WMT/parse_data.ipynb
 
 .DS_Store
 .vscode/
