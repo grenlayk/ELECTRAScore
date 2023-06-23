@@ -118,7 +118,26 @@ class MTScorer:
                       'time passed {time.time() - start}s.', sep=' ')
                 self.record(scores_better, scores_worse, metric_name)
 
-            elif metric_name == 'electra_score':
+            elif metric_name == 'bleurt':
+                from bleurt import score
+
+                def run_bleurt(
+                        candidates: list, references: list, checkpoint: str = "bleurt/BLEURT-20"
+                ):
+                    scorer = score.BleurtScorer(checkpoint)
+                    scores = scorer.score(references=references, candidates=candidates)
+                    return scores
+
+                start = time.time()
+                print(f'Begin calculating BLEURT.')
+                scores_better = run_bleurt(self.betters, self.refs)
+                if len(self.worses) > 0:
+                    scores_worse = run_bleurt(self.worses, self.refs)
+                print(f'Finished calculating BLEURT, time passed {time.time() - start}s.')
+                self.record(scores_better, scores_worse, 'bleurt')
+
+            elif (metric_name == 'electra_score' or
+                  metric_name[:13] == 'electra_score'):
                 """ ELECTRAScore """
                 from metrics.electra_score import ELECTRAScorer
 
@@ -169,6 +188,8 @@ class MTScorer:
                             scores_worse_median, f'{metric_name}_median')
                 self.record(scores_better_min,
                             scores_worse_min, f'{metric_name}_min')
+            else:
+                raise NotImplementedError
 
 
 def main():

@@ -115,6 +115,33 @@ class Scorer:
                 print(f'Finished calculating BERTScore, time passed \
                       {time.time() - start}s.')
 
+            elif metric_name == 'bleurt':
+                from bleurt import score
+
+                def run_bleurt(candidates: list, references: list, checkpoint: str = "bleurt/BLEURT-20"):
+                    scorer = score.BleurtScorer(checkpoint)
+                    scores = scorer.score(references=references, candidates=candidates)
+                    return scores
+
+                start = time.time()
+                print(f'Begin calculating BLEURT.')
+
+                ref_lines = (self.single_ref_lines if not self.multi_ref else
+                             self.multi_ref_lines)
+                for sys_name in tqdm(self.sys_names):
+                    sys_lines = self.get_sys_lines(sys_name)
+
+                    scores = run_bleurt(sys_lines, ref_lines)
+                    counter = 0
+                    for doc_id in self.data:
+                        self.data[doc_id]['sys_summs'][sys_name][
+                            'scores'].update({
+                                'bleurt': scores[counter],
+                            })
+                        counter += 1
+
+                print(f'Finished calculating BLEURT, time passed {time.time() - start}s.')
+
             elif (metric_name == 'electra_score' or
                   metric_name == 'electra_score_e' or
                   metric_name == 'electra_score_ecl' or
@@ -171,7 +198,8 @@ class Scorer:
                       time passed {time.time() - start}s.')
 
             elif (metric_name == 'bart_score' or
-                  metric_name == 'bart_score_cnn'):
+                  metric_name == 'bart_score_cnn' or
+                  metric_name == 'bart_score_para'):
                 """ Vanilla BARTScore, BARTScore-CNN """
                 from metrics.bart_score import BARTScorer
 
@@ -274,6 +302,9 @@ def main():
     parser.add_argument(
         '--bart_score_cnn', action='store_true', default=False,
         help='Whether to calculate BARTScore-CNN')
+    parser.add_argument(
+        '--bart_score_para', action='store_true', default=False,
+        help='Whether to calculate BARTScore-CNN para')
     args = parser.parse_args()
 
     scorer = Scorer(args.file, args.device, args.multi_ref)
@@ -285,6 +316,8 @@ def main():
         METRICS.append('bart_score')
     if args.bart_score_cnn:
         METRICS.append('bart_score_cnn')
+    if args.bart_score_para:
+        METRICS.append('bart_score_para')
     if args.electra_score:
         METRICS.append('electra_score')
     if args.electra_score_e:
