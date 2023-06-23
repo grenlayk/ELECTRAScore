@@ -305,6 +305,8 @@ def main():
     parser.add_argument(
         '--bart_score_para', action='store_true', default=False,
         help='Whether to calculate BARTScore-CNN para')
+    parser.add_argument('--bleurt', action='store_true', default=False,
+                        help='Whether to calculate ELECTRAScore')
     args = parser.parse_args()
 
     scorer = Scorer(args.file, args.device, args.multi_ref)
@@ -324,6 +326,8 @@ def main():
         METRICS.append('electra_score_e')
     if args.electra_score_ecl:
         METRICS.append('electra_score_ecl')
+    if args.bleurt:
+        METRICS.append('bleurt')
 
     scorer.score(METRICS)
     scorer.save_data(args.output)

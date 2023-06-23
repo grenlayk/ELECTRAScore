@@ -212,6 +212,8 @@ def main():
                         help='Whether to calculate BARTScore-Para')
     parser.add_argument('--electra_score', action='store_true', default=False,
                         help='Whether to calculate ELECTRAScore')
+    parser.add_argument('--bleurt', action='store_true', default=False,
+                        help='Whether to calculate ELECTRAScore')
     args = parser.parse_args()
 
     scorer = MTScorer(args.file, args.device)
@@ -229,6 +231,8 @@ def main():
         METRICS.append('bart_score_para')
     if args.electra_score:
         METRICS.append('electra_score')
+    if args.bleurt:
+        METRICS.append('bleurt')
 
     scorer.score(METRICS)
     scorer.save_data(args.output)
